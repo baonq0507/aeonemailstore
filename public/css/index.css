@@ -1,0 +1,20 @@
+html, body {
+    max-width: 500px;
+    margin: 0 auto;
+}
+.fs-12 {
+    font-size: 12px;
+}
+.fs-14 {
+    font-size: 14px;
+}
+.fs-13 {
+    font-size: 13px;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    max-width: 500px;
+    width: 100%;
+    background-color: #fff;
+}
