@@ -37,11 +37,11 @@
     <!-- //select lang -->
     <div class="lang">
         <select name="lang" id="lang" class="form-select">
-            <option name="ja" value="ja" @if(session('lang')=='ja' ) selected @endif>{{ __('mess.Japanese') }}</option>
-            <option name="zh" value="zh" @if(session('lang')=='zh' ) selected @endif>{{ __('mess.Chinese') }}</option>
-            <option name="ko" value="ko" @if(session('lang')=='ko' ) selected @endif>{{ __('mess.Korean') }}</option>
-            <option name="en" value="en" @if(session('lang')=='en' ) selected @endif>{{ __('mess.English') }}</option>
-            <option name="vi" value="vi" @if(session('lang')=='vi' ) selected @endif>{{ __('mess.Vietnamese') }}</option>
+            <option value="ja" {{ config('app.locale') == 'ja' ? 'selected' : '' }}>{{ __('mess.Japanese') }}</option>
+            <option value="zh" {{ config('app.locale') == 'zh' ? 'selected' : '' }}>{{ __('mess.Chinese') }}</option>
+            <option value="ko" {{ config('app.locale') == 'ko' ? 'selected' : '' }}>{{ __('mess.Korean') }}</option>
+            <option value="en" {{ config('app.locale') == 'en' ? 'selected' : '' }}>{{ __('mess.English') }}</option>
+            <option value="vi" {{ config('app.locale') == 'vi' ? 'selected' : '' }}>{{ __('mess.Vietnamese') }}</option>
         </select>
     </div>
 

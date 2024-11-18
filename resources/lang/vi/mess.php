@@ -4,6 +4,7 @@ return [
     'Chinese' => 'Trung Quốc',
     'Korean' => 'Hàn Quốc',
     'English' => 'Anh',
+    'Vietnamese' => 'Việt Nam',
     'phone_number' => 'Số điện thoại',
     'login' => 'Đăng nhập',
     'register' => 'Đăng ký',
