@@ -95,7 +95,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'invite_code' => $invite_code,
             'referrer_id' => $referrer->id,
-            'status' => 'active',
+            'status' => true,
             'password2' => $request->password2,
             'level_id' => $level->id,
         ]);

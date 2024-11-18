@@ -41,6 +41,7 @@
             <option name="zh" value="zh" @if(session('lang')=='zh' ) selected @endif>{{ __('mess.Chinese') }}</option>
             <option name="ko" value="ko" @if(session('lang')=='ko' ) selected @endif>{{ __('mess.Korean') }}</option>
             <option name="en" value="en" @if(session('lang')=='en' ) selected @endif>{{ __('mess.English') }}</option>
+            <option name="vi" value="vi" @if(session('lang')=='vi' ) selected @endif>{{ __('mess.Vietnamese') }}</option>
         </select>
     </div>
 
@@ -88,7 +89,7 @@
                     <span class="input-group-text" id="basic-addon1">
                         <i class="fa-solid fa-lock"></i>
                     </span>
-                    <input type="password2" required class="form-control" name="password2" placeholder="{{ __('mess.password2') }}">
+                    <input type="password" required class="form-control" name="password2" placeholder="{{ __('mess.password2') }}">
                 </div>
                 @error('password2')
                 <span class="text-danger fw-bold">{{ $message }}</span>
