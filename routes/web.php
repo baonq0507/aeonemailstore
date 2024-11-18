@@ -5,7 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\HomeController;
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::middleware(['lang'])->group(function () {
