@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Trang chủ')
+@section('title', __('mess.home'))
 
 @section('content')
 <div class="container">
@@ -40,44 +40,44 @@
         <div class="col-3 text-center">
             <a href="" class="text-decoration-none text-dark">
                 <img src="{{ asset('images/vi.png') }}" alt="icon" width="70" height="70">
-                <p class="fs-14">Vòng quay may mắn</p>
+                <p class="fs-14">{{ __('mess.lucky_spin') }}</p>
             </a>
         </div>
         <div class="col-3 text-center">
             <a href="" class="text-decoration-none text-dark">
                 <img src="{{ asset('images/vi2.png') }}" alt="icon" width="70" height="70">
-                <p class="fs-14">Ví lợi nhuận</p>
+                <p class="fs-14">{{ __('mess.profit_wallet') }}</p>
             </a>
         </div>
         <div class="col-3 text-center">
             <a href="" class="text-decoration-none text-dark">
                 <img src="{{ asset('images/nap.png') }}" alt="icon" width="70" height="70">
-                <p class="fs-14">Nạp tiền</p>
+                <p class="fs-14">{{ __('mess.deposit') }}</p>
             </a>
         </div>
         <div class="col-3 text-center">
             <a href="" class="text-decoration-none text-dark">
                 <img src="{{ asset('images/rut.png') }}" alt="icon" width="70" height="70">
-                <p class="fs-14">Rút tiền</p>
+                <p class="fs-14">{{ __('mess.withdraw') }}</p>
             </a>
         </div>
     </div>
 
     <div class="row">
-        <h5 class="mb-3">Sảnh nhiệm vụ</h5>
+        <h5 class="mb-3">{{ __('mess.task_room') }}</h5>
         @foreach ($levels as $level)
         <div class="col-6 my-3">
             <div class="card position-relative" style="background-color: hsla(180,4%,95%,.6)">
                 <img src="{{ asset($level->image) }}" width="120" height="120" alt="task" class="img-fluid" style="position: absolute; top: -20px; left: 0;">
                 <div class="card-body position-relative">
-                    <h6 class="card-title fw-bold">Hoa hồng {{ $level->commission }}%</h6>
+                    <h6 class="card-title fw-bold">{{ __('mess.commission') }} {{ $level->commission }}%</h6>
                     <p class="card-text fs-12">{{ $level->description }}</p>
                     <img src="{{ asset('images/logo.png') }}" alt="join" class="img-fluid">
                     <!-- // làm mờ  -->
                     @if (auth()->user()->level_id < $level->id)
                         <div class="position-absolute bottom-0 end-0 d-flex justify-content-center align-items-center flex-column py-2" style="background-color: rgba(0,0,0,0.5); width: 100%; height: 50%;">
                             <img src="{{ asset('images/lock.png') }}" alt="join" class="img-fluid" style="width: 30px; height: 30px;">
-                            <p class="text-white fs-12">Chờ nâng cấp</p>
+                            <p class="text-white fs-12">{{ __('mess.waiting_upgrade') }}</p>
                         </div>
                         @endif
                 </div>
@@ -115,7 +115,7 @@
 
     <div class="row">
         <div class="col-12">
-            <h6 class="mb-3">Động thái thu nhập hoa hồng người dùng</h6>
+            <h6 class="mb-3">{{ __('mess.income_list') }}</h6>
             <div id="list-income">
 
             </div>
@@ -189,7 +189,7 @@
                     <strong>${formatNumberPhone(randomIncomePhone())}</strong>
                 </div>
                 <div class="col-4">
-                    <span class="badge bg-success">Hoa hồng thu nhập $${formatNumber(randomIncomeAmount())}</span>
+                    <span class="badge bg-success">{{ __('mess.income') }} $${formatNumber(randomIncomeAmount())}</span>
                 </div>
                 <div class="col-4 text-end">
                     <span class="fs-12">${new Date().toLocaleDateString()}</span>
@@ -207,7 +207,7 @@
                     <strong>${formatNumberPhone(randomIncomePhone())}</strong>
                 </div>
                 <div class="col-4">
-                    <span class="badge bg-success">Hoa hồng thu nhập $${formatNumber(randomIncomeAmount())}</span>
+                    <span class="badge bg-success">{{ __('mess.income') }} $${formatNumber(randomIncomeAmount())}</span>
                 </div>
                 <div class="col-4 text-end">
                     <span class="fs-12">${new Date().toLocaleDateString()}</span>
