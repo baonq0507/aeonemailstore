@@ -149,4 +149,6 @@ return [
     'product_buy_error' => 'Số dư không đủ',
     'mission_start_error' => 'Bạn đã vượt quá số đơn hàng hôm nay',
     'product_buy_success' => 'Mua sản phẩm thành công',
+    'phone_number_unique' => 'Số điện thoại đã tồn tại',
+    'phone_number_not_found' => 'Số điện thoại không tồn tại',
 ];

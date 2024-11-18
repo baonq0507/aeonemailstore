@@ -20,13 +20,14 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'phone_number' => 'required|string|max:11',
+            'phone_number' => 'required|string|max:11|exists:users,phone_number',
             'password' => 'required|string|min:6',
         ], [
             'phone_number.required' => __('mess.phone_number_required'),
             'phone_number.max' => __('mess.phone_number_max'),
             'password.required' => __('mess.password_required'),
             'password.min' => __('mess.password_min'),
+            'phone_number.exists' => __('mess.phone_number_not_found'),
         ]);
 
         if ($validator->fails()) {
@@ -58,7 +59,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'full_name' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:11',
+            'phone_number' => 'required|string|max:11|unique:users,phone_number',
             'password' => 'required|string|min:6',
             'password2' => 'required|string|min:6',
             'invite_code' => 'required|string|max:6|exists:users,invite_code',
@@ -69,6 +70,7 @@ class AuthController extends Controller
             'full_name.required' => __('mess.full_name_required'),
             'phone_number.required' => __('mess.phone_number_required'),
             'phone_number.max' => __('mess.phone_number_max'),
+            'phone_number.unique' => __('mess.phone_number_unique'),
             'password.required' => __('mess.password_required'),
             'password2.required' => __('mess.password2_required'),
         ]);
