@@ -185,7 +185,7 @@
 
 @include('includes.footer')
 @endsection
-@push('js')
+@push('script')
 <script>
     $('#lang').change(function() {
         window.location.href = '/change-lang?lang=' + $(this).val();
