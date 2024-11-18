@@ -134,7 +134,7 @@
             <hr>
             <div class="row justify-content-between">
                 <div class="col-6">
-                    <p class="text-center mb-0">
+                    <p class="text-center mb-0" id="customer-service">
                         <img src="{{ asset('images/lhcskh.png') }}" alt="logo" width="30" height="30">
                     </p>
                     <p class="fs-12 fw-bold text-center">{{ __('mess.customer_service') }}</p>

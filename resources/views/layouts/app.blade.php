@@ -74,7 +74,7 @@
 
     <script src="{{ asset('js/index.js') }}"></script>
     <script>
-        $('#livechat').click(function(e) {
+        $('#livechat, #customer-service').click(function(e) {
             e.preventDefault();
             openLiveChat()
         })
