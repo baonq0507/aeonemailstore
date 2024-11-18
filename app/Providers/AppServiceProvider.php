@@ -23,10 +23,14 @@ class AppServiceProvider extends ServiceProvider
     {
         if(Schema::hasTable('configs')){
             $livechat_id = Config::where('key', 'livechat_id')->first();
-            view()->share('livechat_id', $livechat_id->value);
+            if($livechat_id){
+                view()->share('livechat_id', $livechat_id->value);
+            }
 
             $telegram_token = Config::where('key', 'telegram_token')->first();
-            config(['telegram.bots.mybot.token' => $telegram_token->value]);
+            if($telegram_token){
+                config(['telegram.bots.mybot.token' => $telegram_token->value]);
+            }
         }
     }
 }
