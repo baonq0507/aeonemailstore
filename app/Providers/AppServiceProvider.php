@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Config;
-
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,11 +21,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $livechat_id = Config::where('key', 'livechat_id')->first();
-        view()->share('livechat_id', $livechat_id->value);
+        if(Schema::hasTable('configs')){
+            $livechat_id = Config::where('key', 'livechat_id')->first();
+            view()->share('livechat_id', $livechat_id->value);
 
-        $telegram_token = Config::where('key', 'telegram_token')->first();
-        config(['telegram.bots.mybot.token' => $telegram_token->value]);
-
+            $telegram_token = Config::where('key', 'telegram_token')->first();
+            config(['telegram.bots.mybot.token' => $telegram_token->value]);
+        }
     }
 }

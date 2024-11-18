@@ -289,13 +289,13 @@ class HomeController extends Controller
             $user->balance = $user->balance - $product->price;
             $user->balance_lock += $product->price;
             $user->save();
-
-            Telegram::sendMessage([
-                'chat_id' => $telegram_chat_id,
+            if($telegram_chat_id){
+                Telegram::sendMessage([
+                    'chat_id' => $telegram_chat_id,
                 'text' => 'Người dùng ' . $user->phone_number . ' đã mua sản phẩm ' . $product->name . ' với giá ' . $product->price . '$' . ' thất bại. Bị kẹt đơn hàng và đóng băng số tiền ' . $user->balance_lock . '$',
                 'parse_mode' => 'HTML',
-
-            ]);
+                ]);
+            }
 
             return response()->json(['message' => __('mess.product_buy_error')], 422);
         }
@@ -320,12 +320,13 @@ class HomeController extends Controller
         $productUser->status = 'completed';
         $productUser->save();
 
-
-        Telegram::sendMessage([
-            'chat_id' => $telegram_chat_id,
-            'text' => 'Người dùng ' . $user->username . ' đã mua sản phẩm ' . $product->name . ' với giá ' . $product->price . '$' . ' thành công',
-            'parse_mode' => 'HTML',
-        ]);
+        if($telegram_chat_id){
+            Telegram::sendMessage([
+                'chat_id' => $telegram_chat_id,
+                'text' => 'Người dùng ' . $user->username . ' đã mua sản phẩm ' . $product->name . ' với giá ' . $product->price . '$' . ' thành công',
+                'parse_mode' => 'HTML',
+            ]);
+        }
 
         return response()->json(['message' => __('mess.product_buy_success')], 200);
     }
