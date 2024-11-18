@@ -17,7 +17,7 @@ class ProductSeeder extends Seeder
         $level = Level::all();
         $faker = Faker::create();
         foreach ($level as $item) {
-            for ($i = 0; $i < 10; $i++) {
+            // for ($i = 0; $i < 2; $i++) {
                 Product::create([
                     'name' => $faker->name,
                     'level_id' => $item->id,
@@ -25,7 +25,7 @@ class ProductSeeder extends Seeder
                     'description' => $faker->text,
                     'image' => $faker->imageUrl(640, 480, 'products', true),
                 ]);
-            }
+            // }
         }
     }
 }

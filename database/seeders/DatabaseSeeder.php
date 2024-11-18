@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             'referrer_id' => null,
             'product_id' => null,
             'level_id' => null,
-            'status' => 'active',
+            'status' => true,
             'bank_name' => 'Vietcombank',
             'bank_account' => '1234567890',
             'bank_owner' => 'Nguyễn Văn A',
