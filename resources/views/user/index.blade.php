@@ -156,10 +156,11 @@
                 </div>
                 <div class="col-6">
                     <select name="lang" id="lang" class="form-select">
-                        <option value="vi">{{ __('Vietnam') }}</option>
-                        <option value="en">{{ __('English') }}</option>
-                        <option value="ja">{{ __('Japanese') }}</option>
-                        <option value="ko">{{ __('Korean') }}</option>
+                        <option value="ja" @if(session('lang')=='ja' ) selected @endif>{{ __('mess.Japanese') }}</option>
+                        <option value="zh" @if(session('lang')=='zh' ) selected @endif>{{ __('mess.Chinese') }}</option>
+                        <option value="ko" @if(session('lang')=='ko' ) selected @endif>{{ __('mess.Korean') }}</option>
+                        <option value="en" @if(session('lang')=='en' ) selected @endif>{{ __('mess.English') }}</option>
+                        <option value="vi" @if(session('lang')=='vi' ) selected @endif>{{ __('mess.Vietnamese') }}</option>
                     </select>
                 </div>
             </div>
