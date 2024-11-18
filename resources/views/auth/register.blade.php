@@ -155,6 +155,8 @@
                 title: "{{ __('mess.register_error') }}",
                 text: error.responseJSON.message
             });
+            $('#register').prop('disabled', false);
+            $('#register').html("{{ __('mess.register') }}");
         });
     });
 </script>
