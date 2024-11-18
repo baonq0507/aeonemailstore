@@ -188,7 +188,7 @@
 @push('js')
 <script>
     $('#lang').change(function() {
-        window.location.href = $(this).val();
+        window.location.href = '/change-lang?lang=' + $(this).val();
     });
 </script>
 @endpush
