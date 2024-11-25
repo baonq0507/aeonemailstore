@@ -74,7 +74,7 @@ class ProductResource extends Resource
                     ->searchable()
                     ->label('Cấp độ'),
                 ImageColumn::make('image')
-                    ->disk('public')
+                    ->disk('public/images/products')
                     ->label('Ảnh'),
             ])
             ->filters([
