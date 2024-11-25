@@ -355,7 +355,8 @@ class ProductSeeder extends Seeder
             Storage::disk('public')->put($path, $imageContent);
         }
 
-        return Storage::url($path);
+        $path = str_replace('/storage/products/', '', Storage::url($path));
+        return $path;
     }
 }
 
