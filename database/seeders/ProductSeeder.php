@@ -345,8 +345,11 @@ class ProductSeeder extends Seeder
     // download image from url and save to public/images
     public function downloadImage($url) {
         $filename = basename($url);
-        $path = public_path('images/products/' . $filename);
-        file_put_contents($path, file_get_contents($url));
+        // $path = public_path('images/products/' . $filename);
+        $path = asset('images/products/' . $filename);
+        if (!file_exists($path)) {
+            file_put_contents($path, file_get_contents($url));
+        }
         return $path;
     }
 }
