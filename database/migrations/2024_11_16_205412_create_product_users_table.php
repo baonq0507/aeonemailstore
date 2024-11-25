@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products');
             $table->enum('status', ['pending', 'completed', 'failed'])->default('pending');
             $table->string('order_code')->default(Str::random(10));
+            $table->decimal('before_balance', 10, 2)->nullable();
+            $table->decimal('after_balance', 10, 2)->nullable();
             $table->timestamps();
         });
     }
