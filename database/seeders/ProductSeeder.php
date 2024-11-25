@@ -345,9 +345,9 @@ class ProductSeeder extends Seeder
 
     // download image from url and save to public/images
     public function downloadImage($url) {
-        // ex url
-        // https://cdn.dummyjson.com/products/images/smartphones/Vivo%20X21/3.png
-        $filename = basename($url);
+        // Tạo tên file mới với timestamp và random string
+        $extension = pathinfo(basename($url), PATHINFO_EXTENSION);
+        $filename = time() . '_' . Str::random(10) . '.' . $extension;
         $path = 'products/' . $filename;
 
         if (!Storage::disk('public')->exists($path)) {
