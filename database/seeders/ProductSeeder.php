@@ -344,9 +344,10 @@ class ProductSeeder extends Seeder
 
     // download image from url and save to public/images
     public function downloadImage($url) {
+        // ex url
+        // https://cdn.dummyjson.com/products/images/smartphones/Vivo%20X21/3.png
         $filename = basename($url);
-        // $path = public_path('images/products/' . $filename);
-        $path = asset('images/products/' . $filename);
+        $path = public_path('images/products/' . $filename);
         if (!file_exists($path)) {
             file_put_contents($path, file_get_contents($url));
         }
