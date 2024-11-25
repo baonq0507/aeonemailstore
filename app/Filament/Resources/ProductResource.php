@@ -73,9 +73,13 @@ class ProductResource extends Resource
                 TextColumn::make('level.name')
                     ->searchable()
                     ->label('Cấp độ'),
-                ImageColumn::make('image')
-                    ->disk('public')
+                // ImageColumn::make('image')
+                //     ->disk('public')
+                //     ->label('Ảnh')
+                TextColumn::make('image')
                     ->label('Ảnh')
+                    ->formatStateUsing(fn ($state) => "<img src='{$state}' width='100' />")
+                    ->html(),
             ])
             ->filters([
                 SelectFilter::make('level_id')
