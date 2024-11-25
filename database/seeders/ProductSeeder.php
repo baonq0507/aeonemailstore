@@ -352,6 +352,7 @@ class ProductSeeder extends Seeder
             file_put_contents($path, file_get_contents($url));
             $path = '/images/products/' . $filename;
         }
+        $path = str_replace(public_path(), '', $path);
         return $path;
     }
 }
