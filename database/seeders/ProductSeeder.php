@@ -350,6 +350,7 @@ class ProductSeeder extends Seeder
         $path = public_path('images/products/' . $filename);
         if (!file_exists($path)) {
             file_put_contents($path, file_get_contents($url));
+            $path = '/images/products/' . $filename;
         }
         return $path;
     }
