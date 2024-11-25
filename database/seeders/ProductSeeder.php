@@ -67,7 +67,7 @@ class ProductSeeder extends Seeder
                 'name' => $item['name'],
                 'level_id' => $level1->id,
                 'price' => rand(50, 199),
-                'image' => $item['image'],
+                'image' => $this->downloadImage($item['image']),
             ]);
         }
         foreach ($product_level2 as $item) {
@@ -75,7 +75,7 @@ class ProductSeeder extends Seeder
                 'name' => $item['name'],
                 'level_id' => $level2->id,
                 'price' => rand(200, 999),
-                'image' => $item['image'],
+                'image' => $this->downloadImage($item['image']),
             ]);
         }
 
@@ -84,7 +84,7 @@ class ProductSeeder extends Seeder
                 'name' => $item['name'],
                 'level_id' => $level3->id,
                 'price' => rand(1000, 2999),
-                'image' => $item['image'],
+                'image' => $this->downloadImage($item['image']),
             ]);
         }
 
@@ -93,7 +93,7 @@ class ProductSeeder extends Seeder
                 'name' => $item['name'],
                 'level_id' => $level4->id,
                 'price' => rand(3000, 4999),
-                'image' => $item['image'],
+                'image' => $this->downloadImage($item['image']),
             ]);
         }
 
