@@ -17,6 +17,9 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Forms\Components\TextInput;
+use Illuminate\Support\Str;
+use Filament\Forms\Components\Actions\ButtonAction;
 class ProductUserResource extends Resource
 {
     protected static ?string $model = ProductUser::class;
@@ -40,6 +43,15 @@ class ProductUserResource extends Resource
             ->schema([
                 Section::make('Thông tin nhiệm vụ')
                     ->schema([
+                        TextInput::make('order_code')
+                            ->label('Mã đơn hàng')
+                            ->suffixAction(function () {
+                                return Forms\Components\Actions\ButtonAction::make('random')
+                                    ->label('Random')
+                                    ->action(function ($state, $set) {
+                                        $set('order_code', Str::random(10));
+                                    });
+                            }),
                         Select::make('user_id')
                             ->label('Người thực hiện')
                             ->relationship('user', 'full_name'),
@@ -61,6 +73,8 @@ class ProductUserResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('order_code')
+                    ->label('Mã đơn hàng'),
                 TextColumn::make('user.full_name')
                     ->searchable()
                     ->sortable()
@@ -69,6 +83,10 @@ class ProductUserResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->label('Sản phẩm'),
+                TextColumn::make('before_balance')
+                    ->label('Số dư trước'),
+                TextColumn::make('after_balance')
+                    ->label('Số dư sau'),
                 TextColumn::make('status')
                     ->label('Trạng thái')
                     ->formatStateUsing(fn ($state) => $state === 'pending' ? 'Chờ thực hiện' : ($state === 'completed' ? 'Đã thực hiện' : 'Thất bại'))

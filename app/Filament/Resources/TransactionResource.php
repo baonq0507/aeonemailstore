@@ -18,7 +18,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
-
+use Pusher\Pusher;
 class TransactionResource extends Resource
 {
     protected static ?string $model = Transaction::class;
@@ -28,6 +28,12 @@ class TransactionResource extends Resource
     protected static ?string $navigationGroup = 'Giao dịch';
 
     public static ?string $label = 'Giao dịch Nạp tiền';
+
+    // hiện thị số lượng giao dịch chờ duyệt
+    public static function getNavigationBadge(): ?string
+    {
+        return Transaction::where('status', 'pending')->where('type', 'deposit')->count();
+    }
 
     // query
     public static function getEloquentQuery(): Builder
@@ -108,6 +114,13 @@ class TransactionResource extends Resource
                         ->action(function ($record) {
                             $record->update(['status' => 'success']);
                             $record->user->update(['balance' => $record->balance_after]);
+
+                            // pusher
+                            $message = __('mess.update_balance_deposit_message', ['balance' => $record->balance_after]);
+                            $pusher = new Pusher(env('PUSHER_APP_KEY'), env('PUSHER_APP_SECRET'), env('PUSHER_APP_ID'), [
+                                'cluster' => env('PUSHER_APP_CLUSTER'),
+                            ]);
+                            $pusher->trigger('user-channel-' . $record->user_id, 'update-balance', $message);
                             Notification::make()
                                 ->title('Thành công')
                                 ->body('Duyệt giao dịch thành công')
@@ -121,7 +134,7 @@ class TransactionResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])->poll(3000);
     }
 
     public static function getRelations(): array

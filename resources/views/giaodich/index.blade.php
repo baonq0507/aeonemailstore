@@ -4,10 +4,10 @@
 <div class="container mt-3">
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <a class="nav-link {{ $type == 'deposit' ? 'active text-white' : 'text-dark' }}" href="{{ route('transaction.index', ['type' => 'deposit']) }}">{{ __('mess.deposit_history') }}</a>
+            <a class="nav-link {{ $type == 'deposit' ? 'active text-white' : 'text-dark' }}" href="{{ route('giaodich.index', ['type' => 'deposit']) }}">{{ __('mess.deposit_history') }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ $type == 'withdraw' ? 'active text-white' : 'text-dark' }}" href="{{ route('transaction.index', ['type' => 'withdraw']) }}">{{ __('mess.withdraw_history') }}</a>
+            <a class="nav-link {{ $type == 'withdraw' ? 'active text-white' : 'text-dark' }}" href="{{ route('giaodich.index', ['type' => 'withdraw']) }}">{{ __('mess.withdraw_history') }}</a>
         </li>
     </ul>
     <hr>

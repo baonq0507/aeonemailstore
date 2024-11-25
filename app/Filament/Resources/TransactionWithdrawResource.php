@@ -32,6 +32,12 @@ class TransactionWithdrawResource extends Resource
 
     protected static ?string $navigationLabel = 'Giao dịch rút tiền';
 
+    // hiện thị số lượng giao dịch chờ duyệt
+    public static function getNavigationBadge(): ?string
+    {
+        return Transaction::where('status', 'pending')->where('type', 'withdraw')->count();
+    }
+
     //query
     public static function getEloquentQuery(): Builder
     {

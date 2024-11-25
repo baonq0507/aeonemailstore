@@ -43,12 +43,12 @@
                 </div>
                 <div class="col-6">
                     <p class="text-center mb-0"> {{__('mess.number_order_completed')}} </p>
-                    <p class="text-center mb-0 text-danger"> 0/{{ $level->order }}</p>
+                    <p class="text-center mb-0 text-danger"> {{ auth()->user()->total_order }}/{{ $level->order }}</p>
                 </div>
                 <!-- hoa hồng hôm nay -->
                 <div class="col-6">
                     <p class="text-center mb-0"> {{__('mess.today_commission')}} </p>
-                    <p class="text-center mb-0 text-danger"> ${{ number_format(0, 0, ',', '.') }} </p>
+                    <p class="text-center mb-0 text-danger"> ${{ number_format($commission, 0, ',', '.') }} </p>
                 </div>
                 <!-- số tiền đóng băng -->
                 <div class="col-6">
@@ -111,51 +111,69 @@
             $('#date_time').text(new Date().toLocaleDateString('vi-VN'));
         }, 1500);
 
+        function limitString(str, limit) {
+            return str.length > limit ? str.substring(0, limit) + '...' : str;
+        }
+
         $('#start_mission').click(function(e) {
             e.preventDefault();
-            post("{{ route('mission.start') }}", {
-                _token: "{{ csrf_token() }}"
-            }).then(function(response) {
-                const data = response.data;
-                const level = response.level;
-                Swal.fire({
-                    imageUrl: data.image,
-                    icon: 'success',
-                    title: data.name,
-                    text: `{{ __('mess.price_product', ['price' => ':price', 'profit' => ':profit']) }}`.replace(':price', data.price).replace(':profit', level.commission + '%'),
-                    imageWidth: 400,
-                    imageHeight: 200,
-                    showCloseButton: true,
-                    showCancelButton: true,
-                    confirmButtonText: "{{ __('mess.product_buy') }}",
-                    cancelButtonText: "{{ __('mess.cancel') }}"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        post("{{ route('product.buy') }}", {
-                            _token: "{{ csrf_token() }}",
-                            product_id: data.id
-                        }).then(function(response) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: "{{ __('mess.product_buy_success') }}",
-                            });
-                        }).catch(function(error) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: "{{ __('mess.product_buy_error') }}",
-                                text: error.responseJSON.message
-                            });
-                        });
-                    }
-                });
 
-            }).catch(function(error) {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const currentTime = hours * 100 + minutes;
+
+            if (currentTime >= 830 && currentTime <= 2359) {
+                post("{{ route('mission.start') }}", {
+                    _token: "{{ csrf_token() }}"
+                }).then(function(response) {
+                    const data = response.data;
+                    const level = response.level;
+                    Swal.fire({
+                        imageUrl: data.image,
+                        icon: 'success',
+                        title: limitString(data.name, 30),
+                        text: `{{ __('mess.price_product', ['price' => ':price', 'profit' => ':profit']) }}`.replace(':price', data.price).replace(':profit', level.commission + '%'),
+                        imageWidth: 200,
+                        imageHeight: 200,
+                        showCloseButton: true,
+                        showCancelButton: true,
+                        confirmButtonText: "{{ __('mess.product_buy') }}",
+                        cancelButtonText: "{{ __('mess.cancel') }}"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            post("{{ route('product.buy') }}", {
+                                _token: "{{ csrf_token() }}",
+                                product_id: data.id
+                            }).then(function(response) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: "{{ __('mess.product_buy_success') }}",
+                                });
+                            }).catch(function(error) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: "{{ __('mess.product_buy_error') }}",
+                                    text: error.responseJSON.message
+                                });
+                            });
+                        }
+                    });
+
+                }).catch(function(error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: "{{ __('mess.error') }}",
+                        text: error.responseJSON.message
+                    });
+                });
+            } else {
                 Swal.fire({
                     icon: 'error',
                     title: "{{ __('mess.error') }}",
-                    text: error.responseJSON.message
+                    text: "{{ __('mess.mission_start_error') }}"
                 });
-            });
+            }
         });
     });
 </script>

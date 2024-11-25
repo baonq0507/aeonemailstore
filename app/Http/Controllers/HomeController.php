@@ -12,24 +12,35 @@ use App\Models\Product;
 use Illuminate\Support\Str;
 use App\Models\ProductUser;
 use Telegram\Bot\Laravel\Facades\Telegram;
+use Illuminate\Support\Facades\Cookie;
+use App\Models\Banner;
+
 class HomeController extends Controller
 {
     public function index()
     {
         $levels = Level::all();
-        return view('index', compact('levels'));
+        Cookie::queue('modal_shown', true, 120);
+        $banner = Banner::all();
+        return view('index', compact('levels', 'banner'));
     }
 
     public function history(Request $request)
     {
-        $user = $request->user();
+        $user = auth()->user();
         $status = $request->status;
+        $product = ProductUser::where('user_id', $user->id)->with(['product' => function($query) {
+            $query->with('level');
+        }])->orderByDesc('created_at');
 
-        if (!$status) {
+        if (!$status || $status == 'all') {
             $status = 'all';
+            $product = $product->get();
+        } else {
+            $product = $product->where('status', $status)->get();
         }
-        // $histories = $user->histories;
-        return view('order.index', compact('status'));
+
+        return view('order.index', compact('status', 'product'));
     }
 
     public function user(Request $request)
@@ -47,7 +58,20 @@ class HomeController extends Controller
         if (!$level) {
             $level = Level::where('name', 'Thành viên mới')->first();
         }
-        return view('mission.index', compact('level'));
+        $productUser = ProductUser::where('user_id', auth()->user()->id)
+        ->with('product.level')
+        ->where('status', 'completed')
+        ->orderByDesc('created_at')
+        ->get();
+        $commission = 0;
+
+        if(!$productUser->isEmpty()) {
+            foreach($productUser as $item) {
+                $commission += $item->product->price * $item->product->level->commission / 100;
+            }
+        }
+
+        return view('mission.index', compact('level', 'productUser', 'commission'));
     }
 
     public function missionStart(Request $request)
@@ -61,15 +85,16 @@ class HomeController extends Controller
             return response()->json(['message' => __('mess.mission_start_error')], 422);
         }
 
-        $product = Product::where('level_id', $level->id)->where('price', '<=', $user->balance)->first();
+        $product = Product::where('level_id', $level->id)->where('price', '<=', $user->balance)->inRandomOrder()->first();
 
         if (!$product) {
             return response()->json(['message' => 'Không tìm thấy sản phẩm'], 422);
         }
 
-        if($user->total_order == $user->order_number) {
+        if($user->total_order > 0 &&$user->total_order == $user->order_number) {
             $product = Product::find($user->product_id);
         }
+
 
         $productUser = ProductUser::where('user_id', $user->id)->where('status', 'pending')->first();
         if (!$productUser) {
@@ -77,6 +102,9 @@ class HomeController extends Controller
                 'user_id' => $user->id,
                 'product_id' => $product->id,
                 'status' => 'pending',
+                'order_code' => "AE" . strtoupper(Str::random(2) . rand(10, 99)),
+                'before_balance' => $user->balance,
+                'after_balance' => $user->balance - $product->price,
             ]);
         }
         return response()->json(['message' => 'success', 'data' => $product, 'level' => $level], 200);
@@ -124,6 +152,16 @@ class HomeController extends Controller
             'balance_after' => auth()->user()->balance + $amount_after_fee,
         ]);
 
+        //Telegram
+        $telegram_chat_id = Config::where('key', 'telegram_chat_id')->first();
+        if($telegram_chat_id){
+            Telegram::sendMessage([
+                'chat_id' => $telegram_chat_id->value,
+                'text' => 'Người dùng ' . auth()->user()->full_name . ' đã thực hiện nạp tiền ' . $amount,
+                'parse_mode' => 'HTML',
+            ]);
+        }
+
         return response()->json(['message' => __('mess.deposit_success')], 200);
     }
 
@@ -161,12 +199,16 @@ class HomeController extends Controller
             return response()->json(['message' => __('mess.password2_error')], 422);
         }
 
+        if($user->total_order < $user->level->order) {
+            return response()->json(['message' => __('mess.withdraw_error_message_4')], 422);
+        }
+
         Transaction::create([
             'user_id' => $user->id,
             'type' => 'withdraw',
             'amount' => $request->amount,
             'status' => 'pending',
-            'transaction_code' => Str::random(10),
+            'transaction_code' => "AE" . strtoupper(Str::random(4)),
             'balance_before' => $user->balance,
             'balance_after' => $user->balance - $request->amount,
             'amount_after_fee' => $request->amount,
@@ -176,17 +218,27 @@ class HomeController extends Controller
         $user->balance = $user->balance - $request->amount;
         $user->save();
 
+        //Telegram
+        $telegram_chat_id = Config::where('key', 'telegram_chat_id')->first();
+        if($telegram_chat_id){
+            Telegram::sendMessage([
+                'chat_id' => $telegram_chat_id->value,
+                'text' => 'Người dùng ' . $user->full_name . ' đã thực hiện rút tiền ' . $request->amount,
+                'parse_mode' => 'HTML',
+            ]);
+        }
+
         return response()->json(['message' => __('mess.withdraw_success_message_2')], 200);
     }
 
-    public function transaction(Request $request)
+    public function giaodich(Request $request)
     {
         $type = $request->type;
         if (!$type) {
             $type = 'deposit';
         }
-        $transactions = Transaction::where(['user_id' => auth()->user()->id, 'type' => $type])->get();
-        return view('transaction.index', compact('type', 'transactions'));
+        $transactions = Transaction::where(['user_id' => auth()->user()->id, 'type' => $type])->orderByDesc('created_at')->get();
+        return view('giaodich.index', compact('type', 'transactions'));
     }
 
     public function password(Request $request)
@@ -281,18 +333,18 @@ class HomeController extends Controller
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()->first()], 422);
         }
-        $telegram_chat_id = Config::where('key', 'telegram_chat_id')->first()->value;
+        $telegram_chat_id = Config::where('key', 'telegram_chat_id')->first();
 
         $product = Product::find($request->product_id);
         $user = auth()->user();
         if ($user->balance < $product->price) {
-            $user->balance = $user->balance - $product->price;
-            $user->balance_lock += $product->price;
+            $user->balance = $user->balance;
+            $user->balance_lock += $user->balance;
             $user->save();
             if($telegram_chat_id){
                 Telegram::sendMessage([
-                    'chat_id' => $telegram_chat_id,
-                'text' => 'Người dùng ' . $user->phone_number . ' đã mua sản phẩm ' . $product->name . ' với giá ' . $product->price . '$' . ' thất bại. Bị kẹt đơn hàng và đóng băng số tiền ' . $user->balance_lock . '$',
+                    'chat_id' => $telegram_chat_id->value,
+                'text' => 'Người dùng ' . $user->full_name . ' đã mua sản phẩm ' . $product->name . ' với giá ' . $product->price . '$' . ' thất bại. Bị kẹt đơn hàng và đóng băng số tiền ' . $user->balance_lock . '$',
                 'parse_mode' => 'HTML',
                 ]);
             }
@@ -303,31 +355,41 @@ class HomeController extends Controller
         $user->balance = $user->balance - $product->price;
         $user->save();
 
-        $profit = $product->price * $product->commission / 100;
-        $user->balance = $user->balance + $profit;
+        $profit = $product->price * $product->level->commission / 100;
+        $user->balance += $product->price + $profit;
         $user->total_order += 1;
         $user->save();
 
-        $productUser = ProductUser::where('user_id', $user->id)->where('product_id', $product->id)->first();
+        $productUser = ProductUser::where('user_id', $user->id)->where('product_id', $product->id)->where('status', 'pending')->first();
         if (!$productUser) {
             $productUser = ProductUser::create([
                 'user_id' => $user->id,
                 'product_id' => $product->id,
                 'status' => 'completed',
+                'order_code' => "AE" . strtoupper(Str::random(2) . rand(10, 99)),
+                'before_balance' => $user->balance,
+                'after_balance' => $user->balance + $product->price + $profit,
             ]);
         }
 
         $productUser->status = 'completed';
+        $productUser->after_balance = $user->balance + $product->price + $profit;
         $productUser->save();
 
         if($telegram_chat_id){
             Telegram::sendMessage([
-                'chat_id' => $telegram_chat_id,
-                'text' => 'Người dùng ' . $user->username . ' đã mua sản phẩm ' . $product->name . ' với giá ' . $product->price . '$' . ' thành công',
+                'chat_id' => $telegram_chat_id->value,
+                'text' => 'Người dùng ' . $user->full_name . ' đã mua sản phẩm ' . $product->name . ' với giá ' . $product->price . '$' . ' thành công',
                 'parse_mode' => 'HTML',
             ]);
         }
 
         return response()->json(['message' => __('mess.product_buy_success')], 200);
+    }
+
+
+    public function feedback(Request $request)
+    {
+        return view('feedback.index');
     }
 }

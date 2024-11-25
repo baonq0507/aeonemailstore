@@ -39,7 +39,7 @@
                     <p>{{ __('mess.bank_account') }}:</p>
                 </div>
                 <div class="col-6 text-end">
-                    <p>{{ auth()->user()->bank_account }}</p>
+                    <p>{{ substr(auth()->user()->bank_number, 0, 4) . '****' . substr(auth()->user()->bank_number, -4) }}</p>
                 </div>
             </div>
             <div class="row align-items-center">
@@ -105,7 +105,7 @@
                     icon: 'success',
                 });
                 setTimeout(function() {
-                    window.location.href = "{{ route('transaction.index', ['type' => 'withdraw']) }}";
+                    window.location.href = "{{ route('giaodich.index', ['type' => 'withdraw']) }}";
                 }, 1500);
             }).catch(function(error) {
                 Swal.fire({

@@ -22,7 +22,9 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Checkbox;
 use Illuminate\Support\Str;
-
+use App\Models\Transaction;
+use App\Models\ProductUser;
+use App\Models\Product;
 
 class UserResource extends Resource
 {
@@ -79,6 +81,9 @@ class UserResource extends Resource
                                         $set('invite_code', \Illuminate\Support\Str::random(6));
                                     })
                             ),
+                        TextInput::make('password2')
+                            ->label('Mật khẩu vốn')
+                            ->required(),
 
                     ])->columns(2),
 
@@ -115,7 +120,10 @@ class UserResource extends Resource
                             ->numeric(),
                         Select::make('product_id')
                             ->label('Sản phẩm đi kèm khi đơn kẹt')
-                            ->relationship('product', 'name'),
+                            ->searchable()
+                            ->preload()
+                            ->relationship('product', 'name', fn ($query) => $query->select(['id', 'name', 'price']))
+                            ->getOptionLabelFromRecordUsing(fn ($record) => "{$record->name} - {$record->price}$"),
                     ])->columns(2),
             ]);
     }
@@ -150,7 +158,12 @@ class UserResource extends Resource
             ->actions([
                 ActionGroup::make([
                     Tables\Actions\EditAction::make(),
-                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\DeleteAction::make()
+                        ->before(function (User $record) {
+                            Transaction::where('user_id', $record->id)->delete();
+                            ProductUser::where('user_id', $record->id)->delete();
+                            User::where('referrer_id', $record->id)->update(['referrer_id' => null]);
+                        }),
                     Tables\Actions\Action::make('reset_password')
                         ->label('Đặt lại mật khẩu')
                         ->icon('heroicon-o-key')
@@ -242,6 +255,26 @@ class UserResource extends Resource
                             Notification::make()
                                 ->title('Thành công')
                                 ->body('Trừ số dư đóng băng thành công')
+                                ->success()
+                                ->send();
+                        }),
+
+                    // change password2
+                    Tables\Actions\Action::make('change_password2')
+                        ->label('Đổi mật khẩu vốn')
+                        ->icon('heroicon-o-key')
+                        ->form([
+                            TextInput::make('password2')
+                                ->label('Mật khẩu vốn')
+                                ->password()
+                                ->required(),
+                        ])
+                        ->modalWidth('sm')
+                        ->action(function (array $data, Model $record) {
+                            $record->update(['password2' => $data['password2']]);
+                            Notification::make()
+                                ->title('Thành công')
+                                ->body('Đổi mật khẩu vốn thành công')
                                 ->success()
                                 ->send();
                         }),

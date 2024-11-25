@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\ConfigResource\Pages;
+namespace App\Filament\Resources\BannerResource\Pages;
 
-use App\Filament\Resources\ConfigResource;
+use App\Filament\Resources\BannerResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditConfig extends EditRecord
+class EditBanner extends EditRecord
 {
-    protected static string $resource = ConfigResource::class;
+    protected static string $resource = BannerResource::class;
 
     protected function getHeaderActions(): array
     {

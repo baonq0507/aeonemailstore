@@ -18,6 +18,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Filters\SelectFilter;
+use App\Models\ProductUser;
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
@@ -60,25 +62,32 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->searchable()
+                    ->sortable()
+                    ->limit(50)
                     ->label('Tên sản phẩm'),
                 TextColumn::make('price')
+                    ->searchable()
                     ->label('Giá'),
 
                 TextColumn::make('level.name')
+                    ->searchable()
                     ->label('Cấp độ'),
                 ImageColumn::make('image')
                     ->label('Ảnh'),
-                TextColumn::make('created_at')
-                    ->dateTime('d-m-Y')
-                    ->label('Ngày tạo'),
             ])
             ->filters([
-                //
+                SelectFilter::make('level_id')
+                    ->label('Cấp độ')
+                    ->relationship('level', 'name'),
             ])
             ->actions([
                 ActionGroup::make([
                     Tables\Actions\EditAction::make(),
-                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\DeleteAction::make()
+                        ->before(function (Product $record) {
+                            ProductUser::where('product_id', $record->id)->delete();
+                        }),
                 ]),
             ])
             ->bulkActions([

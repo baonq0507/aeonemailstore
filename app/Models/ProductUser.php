@@ -10,6 +10,9 @@ class ProductUser extends Model
         'user_id',
         'product_id',
         'status',
+        'order_code',
+        'before_balance',
+        'after_balance',
     ];
 
     public function user(): BelongsTo

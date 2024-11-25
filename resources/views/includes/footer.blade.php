@@ -13,9 +13,9 @@
             </a>
         </div>
         <div class="col">
-            <a href="{{ route('home') }}" class="text-decoration-none">
+            <a href="{{ route('mission.index') }}" class="text-decoration-none">
                 <img src="{{ asset('images/logo1.png') }}" alt="logo" class="img-fluid" width="50" height="50">
-                <h6 class="fs-12 text-dark mb-0"></h6>
+                <h6 class="fs-12 text-dark mb-0">{{ __('mess.mission') }}</h6>
             </a>
         </div>
         <div class="col">

@@ -47,12 +47,18 @@
             //loading
             $('#deposit_btn').html('<i class="fa fa-spinner fa-spin"></i>');
             post("{{ route('deposit.store') }}", formData).then(response => {
+                // $('#deposit_btn').prop('disabled', false);
+                // $('#deposit_btn').html("{{__('mess.deposit')}}");
                 Swal.fire({
                     icon: 'success',
-                    title: "{{ __('mess.deposit_success') }}",
-                    text: response.message
+                    title: "{{ __('mess.create_order_success') }}",
+                    text: "{{__('mess.contact_cs_message')}}",
+                    confirmButtonText: "CSKH"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        openLiveChat();
+                    }
                 });
-                // cskh
             }).catch(error => {
                 Swal.fire({
                     icon: 'error',

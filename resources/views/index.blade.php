@@ -24,7 +24,7 @@
 
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide">
+            <!-- <div class="swiper-slide">
                 <img src="{{ asset('images/banner1.jpg') }}" alt="banner" class="img-fluid">
             </div>
             <div class="swiper-slide">
@@ -32,7 +32,12 @@
             </div>
             <div class="swiper-slide">
                 <img src="{{ asset('images/banner3.jpg') }}" alt="banner" class="img-fluid">
+            </div> -->
+            @foreach ($banner as $item)
+            <div class="swiper-slide">
+                <img src="{{ asset('storage/'.$item->image) }}" alt="banner" class="img-fluid">
             </div>
+            @endforeach
         </div>
         <div class="swiper-pagination"></div>
     </div>
@@ -50,13 +55,13 @@
             </a>
         </div>
         <div class="col-3 text-center">
-            <a href="" class="text-decoration-none text-dark">
+            <a href="{{ route('deposit.index') }}" class="text-decoration-none text-dark">
                 <img src="{{ asset('images/nap.png') }}" alt="icon" width="70" height="70">
                 <p class="fs-14">{{ __('mess.deposit') }}</p>
             </a>
         </div>
         <div class="col-3 text-center">
-            <a href="" class="text-decoration-none text-dark">
+            <a href="{{ route('withdraw.index') }}" class="text-decoration-none text-dark">
                 <img src="{{ asset('images/rut.png') }}" alt="icon" width="70" height="70">
                 <p class="fs-14">{{ __('mess.withdraw') }}</p>
             </a>

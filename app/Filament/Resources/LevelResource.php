@@ -53,7 +53,7 @@ class LevelResource extends Resource
                         TextInput::make('commission')
                             ->required()
                             ->numeric()
-                            ->step(0.01)
+                            ->step(0.1)
                             ->prefix('%')
                             ->label('Tỷ lệ hoa hồng'),
                     ])->columns(2),

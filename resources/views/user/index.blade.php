@@ -71,7 +71,7 @@
             <hr>
             <div class="row justify-content-between">
                 <div class="col-6 text-center">
-                    <a href="{{ route('transaction.index', ['type' => 'deposit']) }}" class="text-decoration-none text-dark">
+                    <a href="{{ route('giaodich.index', ['type' => 'deposit']) }}" class="text-decoration-none text-dark">
                         <img src="{{ asset('images/histroy-naptien.png') }}" alt="logo" width="30" height="30">
                     </a>
                     <p class="fs-12 fw-bold text-center">{{ __('mess.deposit_history') }}</p>
@@ -85,7 +85,7 @@
 
                 </div>
                 <div class="col-6 text-center">
-                    <a href="{{ route('transaction.index', ['type' => 'withdraw']) }}" class="text-decoration-none text-dark">
+                    <a href="{{ route('giaodich.index', ['type' => 'withdraw']) }}" class="text-decoration-none text-dark">
                         <img src="{{ asset('images/chitietthuchi.png') }}" alt="logo" width="30" height="30">
                     </a>
                     <p class="fs-12 fw-bold text-center">{{ __('mess.financial_details') }}</p>
@@ -139,10 +139,10 @@
                     </p>
                     <p class="fs-12 fw-bold text-center">{{ __('mess.customer_service') }}</p>
                 </div>
-                <div class="col-6">
-                    <p class="text-center mb-0">
+                <div class="col-6 text-center">
+                    <a href="{{ route('feedback.index') }}" class="text-decoration-none text-dark">
                         <img src="{{ asset('images/ykienphanhoi.png') }}" alt="logo" width="30" height="30">
-                    </p>
+                    </a>
                     <p class="fs-12 fw-bold text-center">{{ __('mess.feedback') }}</p>
                 </div>
             </div>
@@ -156,11 +156,11 @@
                 </div>
                 <div class="col-6">
                     <select name="lang" id="lang" class="form-select">
-                        <option value="ja" @if(session('lang')=='ja' ) selected @endif>{{ __('mess.Japanese') }}</option>
-                        <option value="zh" @if(session('lang')=='zh' ) selected @endif>{{ __('mess.Chinese') }}</option>
-                        <option value="ko" @if(session('lang')=='ko' ) selected @endif>{{ __('mess.Korean') }}</option>
-                        <option value="en" @if(session('lang')=='en' ) selected @endif>{{ __('mess.English') }}</option>
-                        <option value="vi" @if(session('lang')=='vi' ) selected @endif>{{ __('mess.Vietnamese') }}</option>
+                        <option value="ja" @if(config('app.locale')=='ja' ) selected @endif>{{ __('mess.Japanese') }}</option>
+                        <option value="zh" @if(config('app.locale')=='zh' ) selected @endif>{{ __('mess.Chinese') }}</option>
+                        <option value="ko" @if(config('app.locale')=='ko' ) selected @endif>{{ __('mess.Korean') }}</option>
+                        <option value="en" @if(config('app.locale')=='en' ) selected @endif>{{ __('mess.English') }}</option>
+                        <option value="vi" @if(config('app.locale')=='vi' ) selected @endif>{{ __('mess.Vietnamese') }}</option>
                     </select>
                 </div>
             </div>

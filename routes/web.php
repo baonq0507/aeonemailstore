@@ -24,7 +24,7 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/deposit', [HomeController::class, 'depositStore'])->name('deposit.store');
         Route::get('/withdraw', [HomeController::class, 'withdraw'])->name('withdraw.index');
         Route::post('/withdraw', [HomeController::class, 'withdrawStore'])->name('withdraw.store');
-        Route::get('/transaction', [HomeController::class, 'transaction'])->name('transaction.index');
+        Route::get('/giaodich', [HomeController::class, 'giaodich'])->name('giaodich.index');
         Route::get('/password', [HomeController::class, 'password'])->name('password.index');
         Route::post('/password', [HomeController::class, 'passwordChange'])->name('password2.change');
         Route::get('/bank', [HomeController::class, 'bank'])->name('bank.index');
@@ -33,6 +33,8 @@ Route::middleware(['lang'])->group(function () {
         Route::get('/address', [HomeController::class, 'address'])->name('address.index');
         Route::post('/address', [HomeController::class, 'addressStore'])->name('address.store');
         Route::post('/product/buy', [HomeController::class, 'productBuy'])->name('product.buy');
+        Route::get('/feedback', [HomeController::class, 'feedback'])->name('feedback.index');
+
     });
 });
 

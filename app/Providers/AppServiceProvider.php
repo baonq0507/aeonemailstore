@@ -31,6 +31,11 @@ class AppServiceProvider extends ServiceProvider
             if($telegram_token){
                 config(['telegram.bots.mybot.token' => $telegram_token->value]);
             }
+
+            $imageNotification = Config::where('key', 'anh_thong_bao')->first();
+            if($imageNotification){
+                view()->share('imageNotification', $imageNotification->value);
+            }
         }
     }
 }
