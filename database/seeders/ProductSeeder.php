@@ -9,6 +9,7 @@ use App\Models\Level;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Faker\Factory as Faker;
+use Illuminate\Support\Facades\Storage;
 class ProductSeeder extends Seeder
 {
     /**
@@ -347,13 +348,14 @@ class ProductSeeder extends Seeder
         // ex url
         // https://cdn.dummyjson.com/products/images/smartphones/Vivo%20X21/3.png
         $filename = basename($url);
-        $path = public_path('images/products/' . $filename);
-        if (!file_exists($path)) {
-            file_put_contents($path, file_get_contents($url));
-            $path = '/images/products/' . $filename;
+        $path = 'products/' . $filename;
+
+        if (!Storage::disk('public')->exists($path)) {
+            $imageContent = file_get_contents($url);
+            Storage::disk('public')->put($path, $imageContent);
         }
-        $path = str_replace(public_path(), '', $path);
-        return $path;
+
+        return Storage::url($path);
     }
 }
 
