@@ -74,9 +74,10 @@ class ProductResource extends Resource
                     ->searchable()
                     ->label('Cấp độ'),
                 ImageColumn::make('image')
+                    ->label('Ảnh')
                     ->disk('public')
-                    ->visibility('public/images/products')
-                    ->label('Ảnh'),
+                    ->visibility('public')
+                    ->defaultImageUrl('/images/products/default.png'),
             ])
             ->filters([
                 SelectFilter::make('level_id')
