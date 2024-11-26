@@ -123,7 +123,7 @@
             const minutes = now.getMinutes();
             const currentTime = hours * 100 + minutes;
 
-            // if (currentTime >= 830 && currentTime <= 2359) {
+            if (currentTime >= 830 && currentTime <= 2359) {
                 post("{{ route('mission.start') }}", {
                     _token: "{{ csrf_token() }}"
                 }).then(function(response) {
@@ -170,13 +170,13 @@
                         text: error.responseJSON.message
                     });
                 });
-            // } else {
-            //     Swal.fire({
-            //         icon: 'error',
-            //         title: "{{ __('mess.error') }}",
-            //         text: "{{ __('mess.mission_start_error') }}"
-            //     });
-            // }
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: "{{ __('mess.error') }}",
+                    text: "{{ __('mess.mission_start_error') }}"
+                });
+            }
         });
     });
 </script>
