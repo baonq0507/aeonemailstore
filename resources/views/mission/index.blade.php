@@ -150,6 +150,9 @@
                                     icon: 'success',
                                     title: "{{ __('mess.product_buy_success') }}",
                                 });
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 1500);
                             }).catch(function(error) {
                                 Swal.fire({
                                     icon: 'error',
