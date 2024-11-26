@@ -26,7 +26,9 @@ class AppServiceProvider extends ServiceProvider
             view()->share('livechat_id', $livechat_id->value);
 
             $telegram_token = Config::where('key', 'telegram_token')->first();
-            config(['telegram.bots.mybot.token' => $telegram_token->value]);
+            if($telegram_token){
+                config(['telegram.bots.mybot.token' => $telegram_token->value]);
+            }
 
             $imageNotification = Config::where('key', 'anh_thong_bao')->first();
             view()->share('imageNotification', $imageNotification->value);
