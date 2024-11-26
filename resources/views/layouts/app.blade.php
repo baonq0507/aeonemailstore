@@ -180,7 +180,7 @@
 
 <body>
     @yield('content')
-    @if(!request()->is('login') && !request()->is('register') && $imageNotification)
+    @if(!request()->is('login') && !request()->is('register') && isset($imageNotification))
     <div class="modal-notification" data-modal="test">
         <div class="modal-table">
             <div class="modal-table-cell">
@@ -206,7 +206,7 @@
             openLiveChat()
         })
     </script>
-    @if(!request()->is('login') && !request()->is('register') && $imageNotification && !Cookie::get('modal_shown'))
+    @if(!request()->is('login') && !request()->is('register') && isset($imageNotification) && !Cookie::get('modal_shown'))
     <script>
         $(document).ready(function() {
             $('.modal-notification[data-modal="test"]').addClass("modal-notification_visible");
