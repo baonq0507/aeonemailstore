@@ -172,4 +172,5 @@ return [
     'withdraw_error_message_4' => 'You have not completed the number of orders in your registered membership package',
     'feedback_desc1' => 'Please provide your feedback to AeonMall Group to expand our international vision.',
     'feedback_desc2' => 'All feedback please contact customer service',
+    'error' => 'Error',
 ];

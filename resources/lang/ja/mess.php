@@ -173,4 +173,5 @@ return [
     'withdraw_error_message_4' => '登録した会員パッケージ内の注文数を完了していません',
     'feedback_desc1' => 'AeonMall Groupについてのご意見を提供して、国際的な視野をさらに広げましょう。',
     'feedback_desc2' => 'すべてのご意見はカスタマーサポートにお問い合わせください',
+    'error' => 'エラー',
 ];

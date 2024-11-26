@@ -173,4 +173,5 @@ return [
     'withdraw_error_message_4' => '您未完成已注册会员套餐内的订单数量',
     'feedback_desc1' => '请提供您的意见，以便我们完善国际视野',
     'feedback_desc2' => '请提供您的意见，以便我们完善国际视野',
+    'error' => '错误',
 ];

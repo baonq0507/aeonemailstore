@@ -176,4 +176,5 @@ return [
     'withdraw_error_message_4' => 'Bạn chưa hoàn thành số đơn hàng trong ngày.Vui lòng nhập đúng số tiền rút',
     'feedback_desc1' => 'Hãy đóng góp để AeonMall Group chúng tôi hoàn thiện nâng tầm quốc tế.',
     'feedback_desc2' => 'Mọi ý kiến đóng góp vui lòng liên hệ CSKH',
+    'error' => 'Lỗi',
 ];
