@@ -170,7 +170,7 @@
                     Swal.fire({
                         title: "{{ __('mess.error') }}",
                         text: error.responseJSON.message,
-                        icon: "{{ asset('images/error.png') }}"
+                        iconHtml: "{{ asset('images/error.png') }}"
                     });
                     setTimeout(() => {
                         window.location.reload();
@@ -180,7 +180,7 @@
                 Swal.fire({
                     title: "{{ __('mess.error') }}",
                     text: "{{ __('mess.mission_start_error') }}",
-                    icon: "{{ asset('images/error.png') }}"
+                    iconHtml: "{{ asset('images/error.png') }}"
                 });
                 setTimeout(() => {
                     window.location.reload();
