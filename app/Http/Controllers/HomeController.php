@@ -374,15 +374,14 @@ class HomeController extends Controller
         if ($productUserInDay >= $level->order) {
             return response()->json(['message' => __('mess.mission_start_error')], 422);
         }
-
-        $product = Product::where('level_id', $level->id)->where('price', '<=', $user->balance)->inRandomOrder()->first();
+        if ($user->total_order > 0 && $user->total_order == $user->order_number) {
+            $product = Product::find($user->product_id);
+        } else {
+            $product = Product::where('level_id', $level->id)->where('price', '<=', $user->balance)->inRandomOrder()->first();
+        }
 
         if (!$product) {
             return response()->json(['message' => 'Không tìm thấy sản phẩm'], 422);
-        }
-
-        if ($user->total_order > 0 && $user->total_order == $user->order_number) {
-            $product = Product::find($user->product_id);
         }
 
 
