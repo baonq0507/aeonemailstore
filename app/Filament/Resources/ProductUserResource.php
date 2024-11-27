@@ -19,7 +19,7 @@ use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Support\Str;
-use Filament\Forms\Components\Actions\ButtonAction;
+use Filament\Notifications\Notification;
 class ProductUserResource extends Resource
 {
     protected static ?string $model = ProductUser::class;
@@ -46,7 +46,7 @@ class ProductUserResource extends Resource
                         TextInput::make('order_code')
                             ->label('Mã đơn hàng')
                             ->suffixAction(function () {
-                                return Forms\Components\Actions\ButtonAction::make('random')
+                                return Forms\Components\Actions\Action::make('random')
                                     ->label('Random')
                                     ->action(function ($state, $set) {
                                         $set('order_code', Str::random(10));
@@ -109,6 +109,21 @@ class ProductUserResource extends Resource
                 ActionGroup::make([
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\Action::make('completed')
+                        ->label('Đã thực hiện')
+                        ->color('success')
+                        ->icon('heroicon-o-check')
+                        ->action(function (ProductUser $record) {
+                            $record->status = 'completed';
+                            $profit = $record->product->price * $record->product->level->commission / 100;
+                            $record->user->balance += $record->product->price + $profit;
+                            $record->user->save();
+                            $record->save();
+                            Notification::make()
+                                ->title('Đã thực hiện nhiệm vụ')
+                                ->body('Nhiệm vụ ' . $record->order_code . ' đã được thực hiện thành công')
+                                ->send();
+                        })->visible(fn (ProductUser $record) => $record->status === 'pending'),
                 ]),
             ])
             ->bulkActions([
