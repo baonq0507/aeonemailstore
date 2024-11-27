@@ -178,4 +178,11 @@ return [
     'pending' => '대기 중',
     'failed' => '실패',
     'product_buy_error_2' => '대기 중인 주문이 있습니다',
+    'file_size_must_be_less_than_1mb' => '파일 크기는 1MB 미만이어야 합니다',
+    'file_type_must_be_image' => '파일 유형은 이미지여야 합니다',
+    'avatar_save_success' => '저장 성공',
+    'avatar_save_error' => '저장 실패',
+    'avatar_save_warning' => '이미지여야 합니다',
+    'avatar_save_warning_2' => '이미지는 1MB 미만이어야 합니다',
+    'mission_start_error_4' => '오늘의 주문 한도를 초과했습니다',
 ];

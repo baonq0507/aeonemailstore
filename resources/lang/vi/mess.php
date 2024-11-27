@@ -181,4 +181,12 @@ return [
     'pending' => 'Đang chờ',
     'failed' => 'Thất bại',
     'product_buy_error_2' => 'Bạn đang có đơn hàng đang chờ xử lý',
+    'file_size_must_be_less_than_1mb' => 'File size must be less than 1MB',
+    'file_type_must_be_image' => 'File type must be image',
+    'mission_start_error_4' => 'Bạn đã vượt quá số đơn hàng hôm nay',
+    'avatar_save_success' => 'Lưu ảnh đại diện thành công',
+    'avatar_save_error' => 'Lưu ảnh đại diện thất bại',
+    'avatar_save_warning' => 'Ảnh đại diện phải là file ảnh',
+    'avatar_save_warning_2' => 'Ảnh đại diện phải nhỏ hơn 1MB',
+
 ];

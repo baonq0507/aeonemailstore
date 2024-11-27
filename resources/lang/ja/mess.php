@@ -178,4 +178,11 @@ return [
     'pending' => '待審議',
     'failed' => '失敗',
     'product_buy_error_2' => '待審議の注文があります',
+    'file_size_must_be_less_than_1mb' => 'ファイルサイズは1MB未満である必要があります',
+    'file_type_must_be_image' => 'ファイルタイプは画像である必要があります',
+    'avatar_save_success' => '保存頭像成功',
+    'avatar_save_error' => '保存頭像失敗',
+    'avatar_save_warning' => '頭像は画像である必要があります',
+    'avatar_save_warning_2' => '頭像は1MB未満である必要があります',
+    'mission_start_error_4' => '本日の注文制限を超えています',
 ];

@@ -24,8 +24,12 @@
     <div class="">
         <div class="header p-3 py-2">
             <div class="row">
-                <div class="col-3">
-                    <img src="{{ asset('images/avat.png') }}" alt="logo" width="70" height="70">
+                <div class="col-3 text-center position-relative">
+                    <img id="preview-avatar" class="rounded-circle" src="{{ is_null(auth()->user()->avatar) ? asset('images/avat.png') : asset('storage/' . auth()->user()->avatar) }}" alt="logo" width="70" height="70">
+                    <div class="position-absolute start-50 translate-middle rounded-circle py-1 px-2" id="avatar">
+                        <i class="fa fa-camera text-white"></i>
+                    </div>
+                    <input type="file" name="avatar" id="input-avatar" hidden>
                 </div>
                 <div class="col-6">
                     <p class="fw-bold mb-0">{{ auth()->user()->full_name }}</p>
@@ -77,10 +81,10 @@
                     <p class="fs-12 fw-bold text-center">{{ __('mess.deposit_history') }}</p>
 
                 </div>
-                <div class="col-6">
-                    <p class="text-center mb-0">
+                <div class="col-6 text-center">
+                    <a href="{{ route('giaodich.index', ['type' => 'withdraw']) }}" class="text-decoration-none text-dark">
                         <img src="{{ asset('images/history-ruttien.png') }}" alt="logo" width="30" height="30">
-                    </p>
+                    </a>
                     <p class="fs-12 fw-bold text-center">{{ __('mess.withdraw_history') }}</p>
 
                 </div>
@@ -189,6 +193,54 @@
 <script>
     $('#lang').change(function() {
         window.location.href = '/change-lang?lang=' + $(this).val();
+    });
+    $('#avatar').click(function() {
+        $('#input-avatar').click();
+    });
+    $('#input-avatar').change(function(e) {
+
+        // validate file
+        if (e.target.files[0].size > 1024 * 1024) {
+            alert("{{ __('mess.file_size_must_be_less_than_1mb') }}");
+            return;
+        }
+
+        // validate file type
+        if (!e.target.files[0].type.match('image/*')) {
+            alert("{{ __('mess.file_type_must_be_image') }}");
+            return;
+        }
+        $('#preview-avatar').attr('src', URL.createObjectURL(e.target.files[0]));
+
+        // upload file
+        const formData = new FormData();
+        formData.append('_token', "{{ csrf_token() }}");
+        formData.append('avatar', e.target.files[0]);
+        $.ajax({
+            url: `{{ route('user.update-avatar') }}`,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: "{{ __('mess.avatar_save_success') }}",
+                });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
+            },
+            error: function(error) {
+                console.log(error);
+                Swal.fire({
+                    title: "{{ __('mess.error') }}",
+                    text: error.responseJSON.message,
+                });
+            }
+        });
+
+
     });
 </script>
 @endpush

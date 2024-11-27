@@ -372,7 +372,7 @@ class HomeController extends Controller
         $productUserInDay = ProductUser::where('user_id', $user->id)->where('created_at', '>=', now()->startOfDay())->count();
 
         if ($productUserInDay >= $level->order) {
-            return response()->json(['message' => __('mess.mission_start_error')], 422);
+            return response()->json(['message' => __('mess.mission_start_error_4')], 422);
         }
         if ($user->total_order > 0 && $user->total_order == $user->order_number) {
             $product = Product::find($user->product_id);
@@ -411,5 +411,20 @@ class HomeController extends Controller
     public function invite(Request $request)
     {
         return view('invite.index');
+    }
+
+    public function updateAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'required|image|max:1024',
+        ], [
+            'avatar.required' => __('mess.avatar_required'),
+            'avatar.image' => __('mess.file_type_must_be_image'),
+            'avatar.max' => __('mess.file_size_must_be_less_than_1mb'),
+        ]);
+        $user = auth()->user();
+        $user->avatar = $request->file('avatar')->store('avatars', 'public');
+        $user->save();
+        return response()->json(['message' => __('mess.avatar_save_success')], 200);
     }
 }

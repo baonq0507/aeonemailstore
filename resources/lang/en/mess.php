@@ -177,4 +177,11 @@ return [
     'pending' => 'Pending',
     'failed' => 'Failed',
     'product_buy_error_2' => 'You have an order waiting to be processed',
+    'file_size_must_be_less_than_1mb' => 'File size must be less than 1MB',
+    'file_type_must_be_image' => 'File type must be image',
+    'avatar_save_success' => 'Save avatar successful',
+    'avatar_save_error' => 'Save avatar failed',
+    'avatar_save_warning' => 'Avatar must be image',
+    'avatar_save_warning_2' => 'Avatar must be less than 1MB',
+    'mission_start_error_4' => 'You have exceeded today\'s order limit',
 ];

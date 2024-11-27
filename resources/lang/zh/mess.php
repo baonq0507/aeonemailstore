@@ -178,4 +178,10 @@ return [
     'pending' => '待审核',
     'failed' => '失败',
     'product_buy_error_2' => '您有正在等待处理的订单',
+    'file_size_must_be_less_than_1mb' => '文件大小必须小于1MB',
+    'file_type_must_be_image' => '文件类型必须为图片',
+    'avatar_save_success' => '保存头像成功',
+    'avatar_save_error' => '保存头像失败',
+    'avatar_save_warning' => '头像必须是图片',
+    'avatar_save_warning_2' => '头像必须小于1MB',
 ];

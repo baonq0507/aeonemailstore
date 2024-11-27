@@ -25,7 +25,8 @@ use Illuminate\Support\Str;
 use App\Models\Transaction;
 use App\Models\ProductUser;
 use App\Models\Product;
-
+use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Columns\ImageColumn;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
@@ -84,6 +85,13 @@ class UserResource extends Resource
                         TextInput::make('password2')
                             ->label('Mật khẩu vốn')
                             ->required(),
+                        FileUpload::make('avatar')
+                            ->label('Ảnh đại diện')
+                            ->directory('avatars')
+                            ->image()
+                            ->avatar()
+                            ->columnSpan(2)
+                            ->maxSize(1024),
 
                     ])->columns(2),
 
@@ -148,6 +156,9 @@ class UserResource extends Resource
                     ->label('Cấp độ'),
                 TextColumn::make('total_order')
                     ->label('Tổng đơn hàng'),
+                ImageColumn::make('avatar')
+                    ->label('Ảnh đại diện')
+                    ->circular(),
                 TextColumn::make('created_at')
                     ->dateTime('d-m-Y')
                     ->label('Ngày tạo'),

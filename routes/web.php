@@ -35,6 +35,7 @@ Route::middleware(['lang'])->group(function () {
         Route::post('/product/buy', [HomeController::class, 'productBuy'])->name('product.buy');
         Route::get('/feedback', [HomeController::class, 'feedback'])->name('feedback.index');
         Route::get('/invite', [HomeController::class, 'invite'])->name('invite.index');
+        Route::post('/user/update-avatar', [HomeController::class, 'updateAvatar'])->name('user.update-avatar');
     });
 });
 
