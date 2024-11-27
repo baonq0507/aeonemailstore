@@ -361,7 +361,7 @@ class HomeController extends Controller
         $user->total_order += 1;
         $user->save();
 
-        $productUser = ProductUser::where('user_id', $user->id)->where('product_id', $product->id)->where('status', 'pending')->first();
+        $productUser = ProductUser::where('user_id', $user->id)->where('product_id', $user->product_id)->where('status', 'pending')->first();
         if (!$productUser) {
             $productUser = ProductUser::create([
                 'user_id' => $user->id,
