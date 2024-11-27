@@ -63,7 +63,7 @@ class HomeController extends Controller
         ->where('status', 'completed')
         ->orderByDesc('created_at')
         ->get();
-        $orderInDay = ProductUser::where('user_id', auth()->user()->id)->where('created_at', '>=', now()->startOfDay())->count();
+        $orderInDay = ProductUser::where('user_id', auth()->user()->id)->whereBetween('created_at', [now()->startOfDay(), now()->endOfDay()])->count();
         $commission = 0;
 
         if(!$productUser->isEmpty()) {
@@ -165,7 +165,7 @@ class HomeController extends Controller
         if ($request->password2 !== $user->password2) {
             return response()->json(['message' => __('mess.password2_error')], 422);
         }
-        $orderInDay = ProductUser::where('user_id', $user->id)->where('created_at', '>=', now()->startOfDay())->count();
+        $orderInDay = ProductUser::where('user_id', $user->id)->whereBetween('created_at', [now()->startOfDay(), now()->endOfDay()])->count();
         if($orderInDay < $user->level->order) {
             return response()->json(['message' => __('mess.withdraw_error_message_4')], 422);
         }
