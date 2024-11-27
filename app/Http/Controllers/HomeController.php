@@ -296,6 +296,11 @@ class HomeController extends Controller
             'product_id.required' => __('mess.product_id_required'),
             'product_id.exists' => __('mess.product_id_exists'),
         ]);
+        $user = auth()->user();
+
+        if($request->product_id == $user->product_id) {
+            return response()->json(['message' => __('mess.product_buy_error_2')], 422);
+        }
 
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()->first()], 422);
@@ -303,7 +308,6 @@ class HomeController extends Controller
         $telegram_chat_id = Config::where('key', 'telegram_chat_id')->first();
 
         $product = Product::find($request->product_id);
-        $user = auth()->user();
         if ($user->balance < $product->price) {
             $user->balance_lock += $user->balance;
             $user->balance = 0;
