@@ -6,6 +6,9 @@
         border-radius: 10px;
         background-color: rgb(245 245 245/1)
     }
+    .no-border {
+        border: none !important;
+    }
 </style>
 @endpush
 @section('content')
@@ -157,7 +160,10 @@
                                 Swal.fire({
                                     title: "{{ __('mess.product_buy_error') }}",
                                     text: error.responseJSON.message,
-                                    iconHtml: `<img src="{{ asset('images/error.png') }}" alt="error" class="w-25">`
+                                    iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="w-25">`,
+                                    customClass: {
+                                        icon: 'no-border'
+                                    }
                                 });
                                 setTimeout(() => {
                                     window.location.reload();
@@ -170,7 +176,10 @@
                     Swal.fire({
                         title: "{{ __('mess.error') }}",
                         text: error.responseJSON.message,
-                        iconHtml: `<img src="{{ asset('images/error.png') }}" alt="error" class="w-25">`
+                        iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="w-25">`,
+                        customClass: {
+                            icon: 'no-border'
+                        }
                     });
                     setTimeout(() => {
                         window.location.reload();
@@ -180,7 +189,10 @@
                 Swal.fire({
                     title: "{{ __('mess.error') }}",
                     text: "{{ __('mess.mission_start_error') }}",
-                    iconHtml: `<img src="{{ asset('images/error.png') }}" alt="error" class="w-25">`
+                    iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="w-25">`,
+                    customClass: {
+                        icon: 'no-border'
+                    }
                 });
                 setTimeout(() => {
                     window.location.reload();
