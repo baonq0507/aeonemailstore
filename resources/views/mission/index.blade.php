@@ -155,9 +155,9 @@
                                 }, 1500);
                             }).catch(function(error) {
                                 Swal.fire({
-                                    icon: 'error',
                                     title: "{{ __('mess.product_buy_error') }}",
-                                    text: error.responseJSON.message
+                                    text: error.responseJSON.message,
+                                    icon: "{{ asset('images/error.png') }}"
                                 });
                                 setTimeout(() => {
                                     window.location.reload();
@@ -168,9 +168,9 @@
 
                 }).catch(function(error) {
                     Swal.fire({
-                        icon: 'error',
                         title: "{{ __('mess.error') }}",
-                        text: error.responseJSON.message
+                        text: error.responseJSON.message,
+                        icon: "{{ asset('images/error.png') }}"
                     });
                     setTimeout(() => {
                         window.location.reload();
@@ -178,9 +178,9 @@
                 });
             } else {
                 Swal.fire({
-                    icon: 'error',
                     title: "{{ __('mess.error') }}",
-                    text: "{{ __('mess.mission_start_error') }}"
+                    text: "{{ __('mess.mission_start_error') }}",
+                    icon: "{{ asset('images/error.png') }}"
                 });
                 setTimeout(() => {
                     window.location.reload();
