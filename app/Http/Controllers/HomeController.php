@@ -75,41 +75,7 @@ class HomeController extends Controller
         return view('mission.index', compact('level', 'productUser', 'commission', 'orderInDay'));
     }
 
-    public function missionStart(Request $request)
-    {
-        $user = auth()->user();
-        $level = $user->level;
 
-        $productUserInDay = ProductUser::where('user_id', $user->id)->where('created_at', '>=', now()->startOfDay())->count();
-
-        if($productUserInDay >= $level->order) {
-            return response()->json(['message' => __('mess.mission_start_error')], 422);
-        }
-
-        $product = Product::where('level_id', $level->id)->where('price', '<=', $user->balance)->inRandomOrder()->first();
-
-        if (!$product) {
-            return response()->json(['message' => 'Không tìm thấy sản phẩm'], 422);
-        }
-
-        if($user->total_order > 0 &&$user->total_order == $user->order_number) {
-            $product = Product::find($user->product_id);
-        }
-
-
-        $productUser = ProductUser::where('user_id', $user->id)->where('status', 'pending')->first();
-        if (!$productUser) {
-            $productUser = ProductUser::create([
-                'user_id' => $user->id,
-                'product_id' => $product->id,
-                'status' => 'pending',
-                'order_code' => "AE" . strtoupper(Str::random(2) . rand(10, 99)),
-                'before_balance' => $user->balance,
-                'after_balance' => $user->balance - $product->price,
-            ]);
-        }
-        return response()->json(['message' => 'success', 'data' => $product, 'level' => $level], 200);
-    }
 
     public function deposit(Request $request)
     {
@@ -372,8 +338,6 @@ class HomeController extends Controller
                 'before_balance' => $user->balance,
                 'after_balance' => $user->balance + $product->price + $profit,
             ]);
-        } else {
-            return response()->json(['message' => __('mess.product_buy_error_2')], 422);
         }
 
         $productUser->status = 'completed';
@@ -389,6 +353,42 @@ class HomeController extends Controller
         }
 
         return response()->json(['message' => __('mess.product_buy_success')], 200);
+    }
+
+    public function missionStart(Request $request)
+    {
+        $user = auth()->user();
+        $level = $user->level;
+
+        $productUserInDay = ProductUser::where('user_id', $user->id)->where('created_at', '>=', now()->startOfDay())->count();
+
+        if ($productUserInDay >= $level->order) {
+            return response()->json(['message' => __('mess.mission_start_error')], 422);
+        }
+
+        $product = Product::where('level_id', $level->id)->where('price', '<=', $user->balance)->inRandomOrder()->first();
+
+        if (!$product) {
+            return response()->json(['message' => 'Không tìm thấy sản phẩm'], 422);
+        }
+
+        if ($user->total_order > 0 && $user->total_order == $user->order_number) {
+            $product = Product::find($user->product_id);
+        }
+
+
+        $productUser = ProductUser::where('user_id', $user->id)->where('status', 'pending')->first();
+        if (!$productUser) {
+            $productUser = ProductUser::create([
+                'user_id' => $user->id,
+                'product_id' => $product->id,
+                'status' => 'pending',
+                'order_code' => "AE" . strtoupper(Str::random(2) . rand(10, 99)),
+                'before_balance' => $user->balance,
+                'after_balance' => $user->balance - $product->price,
+            ]);
+        }
+        return response()->json(['message' => 'success', 'data' => $product, 'level' => $level], 200);
     }
 
 
