@@ -155,19 +155,19 @@
                                 });
                                 setTimeout(() => {
                                     window.location.reload();
-                                }, 1500);
+                                }, 2500);
                             }).catch(function(error) {
                                 Swal.fire({
                                     title: "{{ __('mess.product_buy_error') }}",
                                     text: error.responseJSON.message,
-                                    iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="w-25">`,
+                                    iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="img-fluid">`,
                                     customClass: {
                                         icon: 'no-border'
                                     }
                                 });
                                 setTimeout(() => {
                                     window.location.reload();
-                                }, 1500);
+                                }, 2500);
                             });
                         }
                     });
@@ -176,20 +176,20 @@
                     Swal.fire({
                         title: "{{ __('mess.error') }}",
                         text: error.responseJSON.message,
-                        iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="w-25">`,
+                        iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="img-fluid">`,
                         customClass: {
                             icon: 'no-border'
                         }
                     });
                     setTimeout(() => {
                         window.location.reload();
-                    }, 1500);
+                    }, 2500);
                 });
             } else {
                 Swal.fire({
                     title: "{{ __('mess.error') }}",
                     text: "{{ __('mess.mission_start_error') }}",
-                    iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="w-25">`,
+                    iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="img-fluid">`,
                     customClass: {
                         icon: 'no-border'
                     }
