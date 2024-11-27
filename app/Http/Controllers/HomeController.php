@@ -300,20 +300,23 @@ class HomeController extends Controller
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()->first()], 422);
         }
+        $product = Product::find($request->product_id);
 
         $user = auth()->user();
 
         if($request->product_id == $user->product_id) {
+            $user->balance_lock += $product->price;
+            $user->balance = 0;
+            $user->save();
             return response()->json(['message' => __('mess.product_buy_error_2')], 422);
         }
 
         $telegram_chat_id = Config::where('key', 'telegram_chat_id')->first();
 
-        $product = Product::find($request->product_id);
         if ($user->balance < $product->price) {
-            auth()->user()->balance_lock += auth()->user()->balance;
-            auth()->user()->balance = 0;
-            auth()->user()->save();
+            $user->balance_lock += $product->price;
+            $user->balance = 0;
+            $user->save();
             if($telegram_chat_id){
                 Telegram::sendMessage([
                     'chat_id' => $telegram_chat_id->value,
