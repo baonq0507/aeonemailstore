@@ -157,7 +157,7 @@
                                 Swal.fire({
                                     title: "{{ __('mess.product_buy_error') }}",
                                     text: error.responseJSON.message,
-                                    icon: "{{ asset('images/error.png') }}"
+                                    iconHtml: `<img src="{{ asset('images/error.png') }}" alt="error" class="w-25">`
                                 });
                                 setTimeout(() => {
                                     window.location.reload();
@@ -170,7 +170,7 @@
                     Swal.fire({
                         title: "{{ __('mess.error') }}",
                         text: error.responseJSON.message,
-                        iconHtml: "{{ asset('images/error.png') }}"
+                        iconHtml: `<img src="{{ asset('images/error.png') }}" alt="error" class="w-25">`
                     });
                     setTimeout(() => {
                         window.location.reload();
@@ -180,7 +180,7 @@
                 Swal.fire({
                     title: "{{ __('mess.error') }}",
                     text: "{{ __('mess.mission_start_error') }}",
-                    iconHtml: "{{ asset('images/error.png') }}"
+                    iconHtml: `<img src="{{ asset('images/error.png') }}" alt="error" class="w-25">`
                 });
                 setTimeout(() => {
                     window.location.reload();
