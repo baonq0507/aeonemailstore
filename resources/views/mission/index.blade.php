@@ -177,13 +177,17 @@
                                 // nếu lỗi 400
                                 if (error.status === 400) {
                                     Swal.fire({
-                                            title: "{{ __('mess.error') }}",
-                                            text: error.responseJSON.message,
-                                        }); setTimeout(() => {
-                                            window.location.reload();
-                                        }, 2500);
-                                    } else {
-                                        Swal.fire({
+                                        text: error.responseJSON.message,
+                                        iconHtml: `<img src="{{ asset('images/success.png') }}" alt="error" class="img-fluid">`,
+                                        customClass: {
+                                            icon: 'no-border'
+                                        }
+                                    });
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 2500);
+                                } else {
+                                    Swal.fire({
                                             title: "{{ __('mess.error') }}",
                                             text: error.responseJSON.message,
                                             iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="img-fluid">`,
