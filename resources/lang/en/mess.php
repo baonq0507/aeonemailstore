@@ -176,4 +176,5 @@ return [
     'completed' => 'Completed',
     'pending' => 'Pending',
     'failed' => 'Failed',
+    'product_buy_error_2' => 'You have an order waiting to be processed',
 ];

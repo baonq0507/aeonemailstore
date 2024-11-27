@@ -177,4 +177,5 @@ return [
     'completed' => '완료',
     'pending' => '대기 중',
     'failed' => '실패',
+    'product_buy_error_2' => '대기 중인 주문이 있습니다',
 ];

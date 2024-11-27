@@ -180,4 +180,5 @@ return [
     'completed' => 'Hoàn thành',
     'pending' => 'Đang chờ',
     'failed' => 'Thất bại',
+    'product_buy_error_2' => 'Bạn đang có đơn hàng đang chờ xử lý',
 ];

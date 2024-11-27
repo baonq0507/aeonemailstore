@@ -177,4 +177,5 @@ return [
     'completed' => '完了',
     'pending' => '待審議',
     'failed' => '失敗',
+    'product_buy_error_2' => '待審議の注文があります',
 ];

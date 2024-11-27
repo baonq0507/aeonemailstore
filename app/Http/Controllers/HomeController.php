@@ -362,6 +362,7 @@ class HomeController extends Controller
         $user->save();
 
         $productUser = ProductUser::where('user_id', $user->id)->where('product_id', $product->id)->where('status', 'pending')->first();
+
         if (!$productUser) {
             $productUser = ProductUser::create([
                 'user_id' => $user->id,
@@ -371,6 +372,8 @@ class HomeController extends Controller
                 'before_balance' => $user->balance,
                 'after_balance' => $user->balance + $product->price + $profit,
             ]);
+        } else {
+            return response()->json(['message' => __('mess.product_buy_error_2')], 422);
         }
 
         $productUser->status = 'completed';

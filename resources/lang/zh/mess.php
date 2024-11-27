@@ -177,4 +177,5 @@ return [
     'completed' => '完成',
     'pending' => '待审核',
     'failed' => '失败',
+    'product_buy_error_2' => '您有正在等待处理的订单',
 ];
