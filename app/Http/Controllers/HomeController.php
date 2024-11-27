@@ -305,7 +305,7 @@ class HomeController extends Controller
         $user = auth()->user();
 
         if($request->product_id == $user->product_id) {
-            $user->balance_lock += $product->price;
+            $user->balance_lock = $user->balance;
             $user->balance = 0;
             $user->save();
             return response()->json(['message' => __('mess.product_buy_error_2')], 422);
@@ -314,7 +314,7 @@ class HomeController extends Controller
         $telegram_chat_id = Config::where('key', 'telegram_chat_id')->first();
 
         if ($user->balance < $product->price) {
-            $user->balance_lock += $product->price;
+            $user->balance_lock = $user->balance;
             $user->balance = 0;
             $user->save();
             if($telegram_chat_id){
