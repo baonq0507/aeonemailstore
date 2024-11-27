@@ -177,8 +177,9 @@
                                 // nếu lỗi 400
                                 if (error.status === 400) {
                                     Swal.fire({
+
                                         text: error.responseJSON.message,
-                                        iconHtml: `<img src="{{ asset('images/success.png') }}" alt="error" class="img-fluid">`,
+                                        icon: 'success',
                                         customClass: {
                                             icon: 'no-border'
                                         }
