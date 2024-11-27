@@ -296,15 +296,17 @@ class HomeController extends Controller
             'product_id.required' => __('mess.product_id_required'),
             'product_id.exists' => __('mess.product_id_exists'),
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()->first()], 422);
+        }
+
         $user = auth()->user();
 
         if($request->product_id == $user->product_id) {
             return response()->json(['message' => __('mess.product_buy_error_2')], 422);
         }
 
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()->first()], 422);
-        }
         $telegram_chat_id = Config::where('key', 'telegram_chat_id')->first();
 
         $product = Product::find($request->product_id);
@@ -381,7 +383,10 @@ class HomeController extends Controller
         }
 
 
-        $productUser = ProductUser::where('user_id', $user->id)->where('status', 'pending')->first();
+        $productUser = ProductUser::where('user_id', $user->id)
+        ->where('product_id', $product->id)
+        ->where('status', 'pending')
+        ->first();
         if (!$productUser) {
             $productUser = ProductUser::create([
                 'user_id' => $user->id,
