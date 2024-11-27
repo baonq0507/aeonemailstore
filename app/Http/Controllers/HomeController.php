@@ -407,4 +407,9 @@ class HomeController extends Controller
     {
         return view('feedback.index');
     }
+
+    public function invite(Request $request)
+    {
+        return view('invite.index');
+    }
 }

@@ -59,7 +59,7 @@
                     </a>
                 </div>
                 <div class="col-6">
-                    <a>
+                    <a href="{{ route('invite.index') }}" class="text-decoration-none text-dark">
                         <img src="{{ asset('images/nhom-icon.png') }}" alt="logo" width="30" height="30">
                         <span class="fs-12 fw-bold">{{ __('mess.my_group') }}</span>
                     </a>

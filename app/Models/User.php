@@ -88,4 +88,11 @@ class User extends Authenticatable implements FilamentUser, HasName
         return $this->belongsTo(Product::class);
     }
 
+    protected $appends = ['invite_number'];
+
+    public function getInviteNumberAttribute()
+    {
+        return $this->hasMany(User::class, 'referrer_id')->count();
+    }
+
 }
