@@ -311,9 +311,9 @@ class HomeController extends Controller
 
         $product = Product::find($request->product_id);
         if ($user->balance < $product->price) {
-            $user->balance_lock += $user->balance;
-            $user->balance = 0;
-            $user->save();
+            auth()->user()->balance_lock += auth()->user()->balance;
+            auth()->user()->balance = 0;
+            auth()->user()->save();
             if($telegram_chat_id){
                 Telegram::sendMessage([
                     'chat_id' => $telegram_chat_id->value,
