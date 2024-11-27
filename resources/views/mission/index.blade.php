@@ -159,6 +159,9 @@
                                     title: "{{ __('mess.product_buy_error') }}",
                                     text: error.responseJSON.message
                                 });
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 1500);
                             });
                         }
                     });
@@ -169,6 +172,9 @@
                         title: "{{ __('mess.error') }}",
                         text: error.responseJSON.message
                     });
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1500);
                 });
             } else {
                 Swal.fire({
@@ -176,6 +182,9 @@
                     title: "{{ __('mess.error') }}",
                     text: "{{ __('mess.mission_start_error') }}"
                 });
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
             }
         });
     });
