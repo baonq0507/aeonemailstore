@@ -107,7 +107,7 @@
             padding: 0 15px;
         }
 
-        .modal {
+        .modal1 {
             transition: 0.4s all;
             display: inline-block;
             max-width: 500px;
@@ -124,7 +124,7 @@
             font-size: 16px;
         }
 
-        .modal-notification_visible .modal {
+        .modal-notification_visible .modal1 {
             transform: translate(0);
         }
 
@@ -184,7 +184,7 @@
     <div class="modal-notification" data-modal="test">
         <div class="modal-table">
             <div class="modal-table-cell">
-                <div class="modal">
+                <div class="modal1">
                     <button class="modal__close"></button>
                     <div class="modal__content">
                         <img src="{{ $imageNotification }}" alt="" class="img-fluid">
@@ -224,7 +224,7 @@
                     // If there is an open window
 
                     if (
-                        !$(e.target).closest(".modal").length &&
+                        !$(e.target).closest(".modal1").length &&
                         !$(e.target).closest(".modal-link").length
                     ) {
 
