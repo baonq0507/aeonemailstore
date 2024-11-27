@@ -118,6 +118,7 @@ class ProductUserResource extends Resource
                             $profit = $record->product->price * $record->product->level->commission / 100;
                             $record->user->balance = $record->user->balance_lock;
                             $record->user->balance_lock = 0;
+                            $record->user->total_order += 1;
                             $record->user->balance += $record->product->price + $profit;
                             $record->user->save();
                             $record->save();
