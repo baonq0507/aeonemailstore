@@ -372,7 +372,7 @@ class HomeController extends Controller
         $productUserInDay = ProductUser::where('user_id', $user->id)->where('created_at', '>=', now()->startOfDay())->count();
 
         if ($productUserInDay >= $level->order) {
-            return response()->json(['message' => __('mess.mission_start_error_4')], 422);
+            return response()->json(['message' => __('mess.mission_start_error_4')], 400);
         }
         if ($user->total_order > 0 && $user->total_order == $user->order_number) {
             $product = Product::find($user->product_id);

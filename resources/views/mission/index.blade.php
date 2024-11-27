@@ -6,6 +6,7 @@
         border-radius: 10px;
         background-color: rgb(245 245 245/1)
     }
+
     .no-border {
         border: none !important;
     }
@@ -93,73 +94,111 @@
 @push('script')
 <script>
     $(document).ready(function() {
-        // random income phone
-        function randomIncomePhone() {
-            const number3 = ['03', '05', '07', '08', '09'];
-            const number4 = ['8', '6'];
-            const number5 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-            const number6 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-            const number7 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-            const number8 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-            const number9 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-            const number10 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+                // random income phone
+                function randomIncomePhone() {
+                    const number3 = ['03', '05', '07', '08', '09'];
+                    const number4 = ['8', '6'];
+                    const number5 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+                    const number6 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+                    const number7 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+                    const number8 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+                    const number9 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+                    const number10 = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-            return number3[Math.floor(Math.random() * number3.length)] + number4[Math.floor(Math.random() * number4.length)] + number5[Math.floor(Math.random() * number5.length)] + number6[Math.floor(Math.random() * number6.length)] + number7[Math.floor(Math.random() * number7.length)] + number8[Math.floor(Math.random() * number8.length)] + number9[Math.floor(Math.random() * number9.length)];
-        }
-        const formatNumberPhone = (phone) => {
-            return phone.slice(0, 3) + '****' + phone.slice(-3);
-        }
-        setInterval(() => {
-            $('#number_phone').text(formatNumberPhone(randomIncomePhone()));
-            $('#date_time').text(new Date().toLocaleDateString('vi-VN'));
-        }, 1500);
+                    return number3[Math.floor(Math.random() * number3.length)] + number4[Math.floor(Math.random() * number4.length)] + number5[Math.floor(Math.random() * number5.length)] + number6[Math.floor(Math.random() * number6.length)] + number7[Math.floor(Math.random() * number7.length)] + number8[Math.floor(Math.random() * number8.length)] + number9[Math.floor(Math.random() * number9.length)];
+                }
+                const formatNumberPhone = (phone) => {
+                    return phone.slice(0, 3) + '****' + phone.slice(-3);
+                }
+                setInterval(() => {
+                    $('#number_phone').text(formatNumberPhone(randomIncomePhone()));
+                    $('#date_time').text(new Date().toLocaleDateString('vi-VN'));
+                }, 1500);
 
-        function limitString(str, limit) {
-            return str.length > limit ? str.substring(0, limit) + '...' : str;
-        }
+                function limitString(str, limit) {
+                    return str.length > limit ? str.substring(0, limit) + '...' : str;
+                }
 
-        $('#start_mission').click(function(e) {
-            e.preventDefault();
+                $('#start_mission').click(function(e) {
+                    e.preventDefault();
 
-            const now = new Date();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const currentTime = hours * 100 + minutes;
+                    const now = new Date();
+                    const hours = now.getHours();
+                    const minutes = now.getMinutes();
+                    const currentTime = hours * 100 + minutes;
 
-            if (currentTime >= 830 && currentTime <= 2359) {
-                post("{{ route('mission.start') }}", {
-                    _token: "{{ csrf_token() }}"
-                }).then(function(response) {
-                    const data = response.data;
-                    const level = response.level;
-                    Swal.fire({
-                        imageUrl: data.image,
-                        icon: 'success',
-                        title: limitString(data.name, 30),
-                        text: `{{ __('mess.price_product', ['price' => ':price', 'profit' => ':profit']) }}`.replace(':price', data.price).replace(':profit', level.commission + '%'),
-                        imageWidth: 200,
-                        imageHeight: 200,
-                        showCloseButton: true,
-                        showCancelButton: true,
-                        confirmButtonText: "{{ __('mess.product_buy') }}",
-                        cancelButtonText: "{{ __('mess.cancel') }}"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            post("{{ route('product.buy') }}", {
-                                _token: "{{ csrf_token() }}",
-                                product_id: data.id
-                            }).then(function(response) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: "{{ __('mess.product_buy_success') }}",
+                    if (currentTime >= 830 && currentTime <= 2359) {
+                        post("{{ route('mission.start') }}", {
+                            _token: "{{ csrf_token() }}"
+                        }).then(function(response) {
+                            const data = response.data;
+                            const level = response.level;
+                            Swal.fire({
+                                imageUrl: data.image,
+                                icon: 'success',
+                                title: limitString(data.name, 30),
+                                text: `{{ __('mess.price_product', ['price' => ':price', 'profit' => ':profit']) }}`.replace(':price', data.price).replace(':profit', level.commission + '%'),
+                                imageWidth: 200,
+                                imageHeight: 200,
+                                showCloseButton: true,
+                                showCancelButton: true,
+                                confirmButtonText: "{{ __('mess.product_buy') }}",
+                                cancelButtonText: "{{ __('mess.cancel') }}"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    post("{{ route('product.buy') }}", {
+                                        _token: "{{ csrf_token() }}",
+                                        product_id: data.id
+                                    }).then(function(response) {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: "{{ __('mess.product_buy_success') }}",
+                                        });
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2500);
+                                    }).catch(function(error) {
+                                        Swal.fire({
+                                            title: "{{ __('mess.product_buy_error') }}",
+                                            text: error.responseJSON.message,
+                                            iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="img-fluid">`,
+                                            customClass: {
+                                                icon: 'no-border'
+                                            }
+                                        });
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2500);
+                                    });
+                                }
+                            });
+
+                        }).catch(function(error) {
+                                // nếu lỗi 400
+                                if (error.status === 400) {
+                                    Swal.fire({
+                                            title: "{{ __('mess.error') }}",
+                                            text: error.responseJSON.message,
+                                        }); setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2500);
+                                    } else {
+                                        Swal.fire({
+                                            title: "{{ __('mess.error') }}",
+                                            text: error.responseJSON.message,
+                                            iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="img-fluid">`,
+                                            customClass: {
+                                                icon: 'no-border'
+                                            }
+                                        }); setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2500);
+                                    }
                                 });
-                                setTimeout(() => {
-                                    window.location.reload();
-                                }, 2500);
-                            }).catch(function(error) {
+                            } else {
                                 Swal.fire({
-                                    title: "{{ __('mess.product_buy_error') }}",
-                                    text: error.responseJSON.message,
+                                    title: "{{ __('mess.error') }}",
+                                    text: "{{ __('mess.mission_start_error') }}",
                                     iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="img-fluid">`,
                                     customClass: {
                                         icon: 'no-border'
@@ -167,38 +206,9 @@
                                 });
                                 setTimeout(() => {
                                     window.location.reload();
-                                }, 2500);
-                            });
-                        }
-                    });
-
-                }).catch(function(error) {
-                    Swal.fire({
-                        title: "{{ __('mess.error') }}",
-                        text: error.responseJSON.message,
-                        iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="img-fluid">`,
-                        customClass: {
-                            icon: 'no-border'
-                        }
-                    });
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 2500);
+                                }, 1500);
+                            }
+                        });
                 });
-            } else {
-                Swal.fire({
-                    title: "{{ __('mess.error') }}",
-                    text: "{{ __('mess.mission_start_error') }}",
-                    iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="img-fluid">`,
-                    customClass: {
-                        icon: 'no-border'
-                    }
-                });
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1500);
-            }
-        });
-    });
 </script>
 @endpush
