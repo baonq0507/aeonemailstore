@@ -173,4 +173,7 @@ return [
     'feedback_desc1' => 'Please provide your feedback to AeonMall Group to expand our international vision.',
     'feedback_desc2' => 'All feedback please contact customer service',
     'error' => 'Error',
+    'completed' => 'Completed',
+    'pending' => 'Pending',
+    'failed' => 'Failed',
 ];

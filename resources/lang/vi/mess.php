@@ -177,4 +177,7 @@ return [
     'feedback_desc1' => 'Hãy đóng góp để AeonMall Group chúng tôi hoàn thiện nâng tầm quốc tế.',
     'feedback_desc2' => 'Mọi ý kiến đóng góp vui lòng liên hệ CSKH',
     'error' => 'Lỗi',
+    'completed' => 'Hoàn thành',
+    'pending' => 'Đang chờ',
+    'failed' => 'Thất bại',
 ];

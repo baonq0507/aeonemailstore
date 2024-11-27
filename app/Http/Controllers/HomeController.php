@@ -63,6 +63,7 @@ class HomeController extends Controller
         ->where('status', 'completed')
         ->orderByDesc('created_at')
         ->get();
+        $orderInDay = ProductUser::where('user_id', auth()->user()->id)->where('created_at', '>=', now()->startOfDay())->count();
         $commission = 0;
 
         if(!$productUser->isEmpty()) {
@@ -71,7 +72,7 @@ class HomeController extends Controller
             }
         }
 
-        return view('mission.index', compact('level', 'productUser', 'commission'));
+        return view('mission.index', compact('level', 'productUser', 'commission', 'orderInDay'));
     }
 
     public function missionStart(Request $request)
@@ -198,8 +199,8 @@ class HomeController extends Controller
         if ($request->password2 !== $user->password2) {
             return response()->json(['message' => __('mess.password2_error')], 422);
         }
-
-        if($user->total_order < $user->level->order) {
+        $orderInDay = ProductUser::where('user_id', $user->id)->where('created_at', '>=', now()->startOfDay())->count();
+        if($orderInDay < $user->level->order) {
             return response()->json(['message' => __('mess.withdraw_error_message_4')], 422);
         }
 

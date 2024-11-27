@@ -174,4 +174,7 @@ return [
     'feedback_desc1' => '请提供您的意见，以便我们完善国际视野',
     'feedback_desc2' => '请提供您的意见，以便我们完善国际视野',
     'error' => '错误',
+    'completed' => '完成',
+    'pending' => '待审核',
+    'failed' => '失败',
 ];

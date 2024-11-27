@@ -43,7 +43,7 @@
                 </div>
                 <div class="col-6">
                     <p class="text-center mb-0"> {{__('mess.number_order_completed')}} </p>
-                    <p class="text-center mb-0 text-danger"> {{ auth()->user()->total_order }}/{{ $level->order }}</p>
+                    <p class="text-center mb-0 text-danger"> {{ $orderInDay }}/{{ $level->order }}</p>
                 </div>
                 <!-- hoa hồng hôm nay -->
                 <div class="col-6">

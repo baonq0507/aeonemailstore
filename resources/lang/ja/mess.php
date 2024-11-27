@@ -174,4 +174,7 @@ return [
     'feedback_desc1' => 'AeonMall Groupについてのご意見を提供して、国際的な視野をさらに広げましょう。',
     'feedback_desc2' => 'すべてのご意見はカスタマーサポートにお問い合わせください',
     'error' => 'エラー',
+    'completed' => '完了',
+    'pending' => '待審議',
+    'failed' => '失敗',
 ];

@@ -22,7 +22,10 @@
         @foreach ($product as $item)
         <div class="card position-relative mb-3">
             <div class="card-body" style="background:linear-gradient(147deg,#71b7ff,#1783fc 74%)">
-                <img class="position-absolute end-0" style="width: 100px; top:-10px" src="{{ asset('images/success.png') }}" alt="product" class="img-fluid">
+                <!-- <img class="position-absolute end-0" style="width: 100px; top:-10px" src="{{ asset('images/success.png') }}" alt="product" class="img-fluid"> -->
+                <div class="position-absolute end-0" style="width: 100px; top:-10px">
+                    <span class="text-white fs-12 badge {{ $item->status == 'completed' ? 'bg-success' : ($item->status == 'pending' ? 'bg-warning' : 'bg-danger') }}">{{ $item->status === 'completed' ? __('mess.success') : ($item->status === 'pending' ? __('mess.pending') : __('mess.failed')) }}</span>
+                </div>
                 <p>
                     <img src="{{ asset('images/fpt.png') }}" alt="logo" class="img-fluid" width="30" height="30">
                     <span class="text-white">{{ __('mess.from') }}: AeonMall Group</span>
