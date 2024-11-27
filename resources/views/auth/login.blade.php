@@ -93,8 +93,10 @@
         post("{{ route('login') }}", formData).then(response => {
             Swal.fire({
                 icon: 'success',
-                title: "{{ __('mess.login_success') }}",
-                text: response.message
+                // title: "{{ __('mess.login_success') }}",
+                text: response.message,
+                // textButton
+                confirmButtonText: "Loading..."
             });
             setTimeout(() => {
                 window.location.href = "{{ route('home') }}"
