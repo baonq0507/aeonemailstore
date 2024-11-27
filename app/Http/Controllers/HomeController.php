@@ -339,8 +339,8 @@ class HomeController extends Controller
         $product = Product::find($request->product_id);
         $user = auth()->user();
         if ($user->balance < $product->price) {
-            $user->balance = $user->balance;
             $user->balance_lock += $user->balance;
+            $user->balance = 0;
             $user->save();
             if($telegram_chat_id){
                 Telegram::sendMessage([
