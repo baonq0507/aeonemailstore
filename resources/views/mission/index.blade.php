@@ -188,6 +188,7 @@
                         }, 2500);
                     } else if (error.status === 500) {
                         Swal.fire({
+                            title: "{{ __('mess.product_buy_error') }}"
                             text: error.responseJSON.message,
                             iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="img-fluid">`,
                             customClass: {
@@ -196,7 +197,7 @@
                         });
                     } else {
                         Swal.fire({
-                            title: "{{ __('mess.product_buy_error') }}",
+                            title: "{{ __('mess.error') }}",
                             text: error.responseJSON.message,
                             iconHtml: `<img src="{{ asset('images/error.webp') }}" alt="error" class="img-fluid">`,
                             customClass: {
