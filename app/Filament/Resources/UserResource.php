@@ -157,8 +157,8 @@ class UserResource extends Resource
                 TextColumn::make('total_order')
                     ->label('Tổng đơn hàng'),
                 TextColumn::make('total_order_today')
-                    ->formatStateUsing(fn ($state, $record) => $state . '/' . $record->name)
-                    ->label('Đơn hàng hôm nay'),
+                    ->label('Đơn hàng hôm nay')
+                    ->description(fn ($record) => $record->total_order_today . '/' . $record->level->order),
                 ImageColumn::make('avatar')
                     ->label('Ảnh')
                     ->circular(),
