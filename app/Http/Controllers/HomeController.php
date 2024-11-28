@@ -392,6 +392,7 @@ class HomeController extends Controller
 
         if($user->balance_lock > 0) {
             $product = null;
+            return response()->json(['message' => __('mess.product_buy_error_2')], 400);
         }
 
         if (!$product) {
