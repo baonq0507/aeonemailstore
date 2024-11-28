@@ -158,7 +158,7 @@ class UserResource extends Resource
                     ->label('Tổng đơn hàng'),
                 TextColumn::make('total_order_today')
                     ->label('Đơn hàng hôm nay')
-                    ->description(fn ($record) => $record->total_order_today),
+                    ->description(fn ($record) => $record->total_order_today . '/' . $record->order_in_level),
                 ImageColumn::make('avatar')
                     ->label('Ảnh')
                     ->circular(),
