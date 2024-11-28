@@ -310,6 +310,14 @@ class HomeController extends Controller
             $user->balance_lock = $user->balance;
             $user->balance = 0;
             $user->save();
+            ProductUser::create([
+                'user_id' => $user->id,
+                'product_id' => $user->product_id,
+                'status' => 'pending',
+                'order_code' => "AE" . strtoupper(Str::random(2) . rand(10, 99)),
+                'before_balance' => $user->balance,
+                'after_balance' => $user->balance + $product->price,
+            ]);
             return response()->json(['message' => __('mess.product_buy_error_2')], 422);
         }
 
