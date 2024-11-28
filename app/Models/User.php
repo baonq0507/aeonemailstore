@@ -103,7 +103,7 @@ class User extends Authenticatable implements FilamentUser, HasName
 
     public function getOrderInLevelAttribute()
     {
-        return $this->level->order;
+        return $this->level()->first()->order;
     }
 
 }
