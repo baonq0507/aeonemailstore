@@ -98,6 +98,6 @@ class User extends Authenticatable implements FilamentUser, HasName
 
     public function getTotalOrderTodayAttribute()
     {
-        return $this->hasMany(ProductUser::class, 'user_id')->whereBetween('created_at', [now()->startOfDay(), now()->endOfDay()])->count() . '/' . $this->level->order_limit;
+        return $this->hasMany(ProductUser::class, 'user_id')->whereBetween('created_at', [now()->startOfDay(), now()->endOfDay()])->count() . '/' . $this->level->order;
     }
 }
