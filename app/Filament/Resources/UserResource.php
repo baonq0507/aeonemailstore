@@ -159,7 +159,7 @@ class UserResource extends Resource
                 TextColumn::make('total_order_today')
                     ->label('Đơn hàng hôm nay'),
                 ImageColumn::make('avatar')
-                    ->label('Ảnh đại diện')
+                    ->label('Ảnh')
                     ->circular(),
                 TextColumn::make('created_at')
                     ->dateTime('d-m-Y')
