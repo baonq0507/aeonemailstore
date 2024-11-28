@@ -101,4 +101,9 @@ class User extends Authenticatable implements FilamentUser, HasName
         return $this->hasMany(ProductUser::class, 'user_id')->whereBetween('created_at', [now()->startOfDay(), now()->endOfDay()])->count();
     }
 
+    public function getOrderInLevelAttribute()
+    {
+        return $this->level->order;
+    }
+
 }
