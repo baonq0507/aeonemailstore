@@ -390,6 +390,10 @@ class HomeController extends Controller
             $product = Product::where('level_id', $level->id)->where('price', '<=', $user->balance)->inRandomOrder()->first();
         }
 
+        if($user->balance_lock > 0) {
+            $product = null;
+        }
+
         if (!$product) {
             return response()->json(['message' => 'Không tìm thấy sản phẩm'], 422);
         }
