@@ -117,7 +117,7 @@ class UserResource extends Resource
                             ->label('Số dư')
                             ->numeric(),
                         TextInput::make('balance_lock')
-                            ->label('Số dư đóng băng')
+                            ->label('Đóng băng')
                             ->numeric(),
                     ])->columns(2),
                 Section::make('Đơn hàng')
@@ -151,11 +151,13 @@ class UserResource extends Resource
                 TextColumn::make('balance')
                     ->label('Số dư'),
                 TextColumn::make('balance_lock')
-                    ->label('Số dư đóng băng'),
+                    ->label('Đóng băng'),
                 TextColumn::make('level.name')
                     ->label('Cấp độ'),
                 TextColumn::make('total_order')
                     ->label('Tổng đơn hàng'),
+                TextColumn::make('total_order_today')
+                    ->label('Đơn hàng hôm nay'),
                 ImageColumn::make('avatar')
                     ->label('Ảnh đại diện')
                     ->circular(),

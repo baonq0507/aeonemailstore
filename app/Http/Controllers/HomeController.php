@@ -68,7 +68,9 @@ class HomeController extends Controller
 
         if(!$productUser->isEmpty()) {
             foreach($productUser as $item) {
-                $commission += $item->product->price * $item->product->level->commission / 100;
+                if($item->created_at->isToday()) {
+                    $commission += $item->product->price * $item->product->level->commission / 100;
+                }
             }
         }
 
