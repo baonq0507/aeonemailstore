@@ -22,6 +22,7 @@ class EditTransaction extends EditRecord
         if($data['status'] === 'success') {
             $user = User::find($data['user_id']);
             $data['balance_after'] = $user->balance + $data['amount'];
+            $user->update(['balance' => $data['balance_after']]);
         }
         return $data;
     }
