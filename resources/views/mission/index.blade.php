@@ -138,7 +138,7 @@
                         icon: 'success',
                         title: limitString(data.name, 30),
                         text: `{{ __('mess.price_product', ['price' => ':price', 'profit' => ':profit']) }}`.replace(':price', data.price).replace(':profit', level.commission + '%'),
-                        imageWidth: 300,
+                        imageWidth: '200px',
                         imageHeight: 'auto',
                         showCloseButton: true,
                         showCancelButton: true,
