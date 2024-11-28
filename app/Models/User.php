@@ -71,7 +71,7 @@ class User extends Authenticatable implements FilamentUser, HasName
 
     public function level()
     {
-        return $this->belongsTo(Level::class);
+        return $this->belongsTo(Level::class, 'level_id');
     }
 
     public function canAccessPanel(Panel $panel): bool
@@ -99,11 +99,6 @@ class User extends Authenticatable implements FilamentUser, HasName
     public function getTotalOrderTodayAttribute()
     {
         return $this->hasMany(ProductUser::class, 'user_id')->whereBetween('created_at', [now()->startOfDay(), now()->endOfDay()])->count();
-    }
-
-    public function getOrderInLevelAttribute()
-    {
-        return $this->level()->first()->order;
     }
 
 }
