@@ -384,21 +384,6 @@ class HomeController extends Controller
             return response()->json(['message' => 'Không tìm thấy sản phẩm'], 422);
         }
 
-
-        $productUser = ProductUser::where('user_id', $user->id)
-        ->where('product_id', $product->id)
-        ->where('status', 'pending')
-        ->first();
-        if (!$productUser) {
-            $productUser = ProductUser::create([
-                'user_id' => $user->id,
-                'product_id' => $product->id,
-                'status' => 'pending',
-                'order_code' => "AE" . strtoupper(Str::random(2) . rand(10, 99)),
-                'before_balance' => $user->balance,
-                'after_balance' => $user->balance - $product->price,
-            ]);
-        }
         return response()->json(['message' => 'success', 'data' => $product, 'level' => $level], 200);
     }
 
