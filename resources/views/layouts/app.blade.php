@@ -188,7 +188,7 @@
 </head>
 
 <body>
-    <div class="card-loading card position-fixed top-0 left-0 right-0 w-100 d-none" style="background-color: #eee;" id="card-loading">
+    <div class="card-loading card position-fixed top-0 left-0 right-0 w-100 d-none" style="background-color: #eee; max-width: 500px;" id="card-loading">
         <div class="row align-items-center">
             <div class="col-10 mx-0 px-0">
                 <div class="px-3 my-3">
