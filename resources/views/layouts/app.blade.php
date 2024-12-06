@@ -226,7 +226,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="{{ asset('js/index.js') }}"></script>
     <script>
-        $('#livechat, #customer-service').click(function(e) {
+        $('#livechat, #customer-service, .cskh').click(function(e) {
             e.preventDefault();
             openLiveChat()
         })
