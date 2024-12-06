@@ -1,6 +1,6 @@
 html, body {
-    max-width: 500px;
-    margin: 0 auto;
+    /* max-width: 500px; */
+    /* margin: 0 auto; */
 }
 .fs-12 {
     font-size: 12px;
@@ -18,3 +18,4 @@ footer {
     width: 100%;
     background-color: #fff;
 }
+

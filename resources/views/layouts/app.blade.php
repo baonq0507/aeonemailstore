@@ -7,6 +7,7 @@
     <title>{{ env('APP_NAME') }} | @yield('title')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script>
         window.__lc = window.__lc || {};
@@ -179,6 +180,25 @@
 </head>
 
 <body>
+    <div class="card-loading card position-fixed top-0 left-0 right-0 w-100 d-none" style="background-color: #eee;" id="card-loading">
+        <div class="row align-items-center">
+            <div class="col-10 mx-0 px-0">
+                <div class="px-3 my-3">
+                    <i class="fa-solid fa-spinner fa-spin" id="icon-loading" style="color: red"></i>
+                    <span id="message-loading">{{ __('mess.processing') }}</span>
+                </div>
+
+
+
+            </div>
+            <div class="col-2 mx-0 pr-1" id="close-loading">
+                <i class="fa-solid fa-xmark close" style="cursor: pointer; color: red"></i>
+            </div>
+        </div>
+        <div class="progress" id="progress-loading" style="height: 5px;">
+            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+        </div>
+    </div>
     @yield('content')
     @if(!request()->is('login') && !request()->is('register') && isset($imageNotification))
     <div class="modal-notification" data-modal="test">
@@ -198,13 +218,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="{{ asset('js/index.js') }}"></script>
     <script>
         $('#livechat, #customer-service').click(function(e) {
             e.preventDefault();
             openLiveChat()
         })
+        $('#close-loading').click(function(e) {
+            e.preventDefault();
+            $('#card-loading').addClass('d-none');
+        });
     </script>
     @if(!request()->is('login') && !request()->is('register') && isset($imageNotification) && !Cookie::get('modal_shown'))
     <script>
@@ -234,6 +258,8 @@
                     }
                 }
             });
+
+
         });
     </script>
     @endif

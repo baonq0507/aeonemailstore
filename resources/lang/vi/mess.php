@@ -205,4 +205,7 @@ return [
     'vanhoa_3' => '1. Khái niệm văn hóa (các giá trị, chẳng hạn như mục đích của công ty, triết lý kinh doanh, v.v.)',
     'vanhoa_4' => '2. Một hệ thống phù hợp với các ý tưởng văn hóa (nếu nó được thúc đẩy bởi mọi người, nó cần được phản ánh trong hệ thống)',
     'vanhoa_5' => '3. Lớp vật chất là vật mang giá trị, chẳng hạn như các bài hát của công ty, các biển quảng cáo khác nhau, các hoạt động, các bức tường văn hóa, v.v.',
+    'processing' => 'Đang xử lý',
+    'not_spin' => 'Hiện chưa có lượt quay nào cho bạn',
+    'developing' => 'Chức năng đang phát triển',
 ];

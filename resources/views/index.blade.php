@@ -43,13 +43,13 @@
     </div>
     <div class="row my-3">
         <div class="col-3 text-center">
-            <a href="" class="text-decoration-none text-dark">
+            <a href="" id="lucky-spin" class="text-decoration-none text-dark">
                 <img src="{{ asset('images/vi.png') }}" alt="icon" width="70" height="70">
                 <p class="fs-14">{{ __('mess.lucky_spin') }}</p>
             </a>
         </div>
         <div class="col-3 text-center">
-            <a href="" class="text-decoration-none text-dark">
+            <a href="" class="text-decoration-none text-dark" id="profit-wallet">
                 <img src="{{ asset('images/vi2.png') }}" alt="icon" width="70" height="70">
                 <p class="fs-14">{{ __('mess.profit_wallet') }}</p>
             </a>
@@ -358,5 +358,37 @@
             `);
         }
     }, 3000);
+
+    $('#lucky-spin').click((e) => {
+        e.preventDefault();
+        $('#card-loading').removeClass('d-none');
+        $('#message-loading').text("{{ __('mess.processing') }}");
+        const progress = $('#progress-loading');
+        progress.css('width', '0%');
+        progress.animate({
+            width: '100%'
+        }, 3000);
+        setTimeout(() => {
+            $('#message-loading').text("{{ __('mess.not_spin') }}");
+            $('#icon-loading').removeClass('fa-spin');
+            $('#icon-loading').addClass('fa-solid fa-check');
+        }, 3000);
+    });
+    $('#profit-wallet').click((e) => {
+        e.preventDefault();
+        $('#card-loading').removeClass('d-none');
+        $('#message-loading').text("{{ __('mess.processing') }}");
+        const progress = $('#progress-loading');
+        progress.css('width', '0%');
+        progress.animate({
+            width: '100%'
+        }, 3000);
+        setTimeout(() => {
+            // $('#card-loading').addClass('d-none');
+            $('#message-loading').text("{{ __('mess.developing') }}");
+            $('#icon-loading').removeClass('fa-spin');
+            $('#icon-loading').addClass('fa-solid fa-check');
+        }, 3000);
+    });
 </script>
 @endpush
