@@ -31,6 +31,12 @@ class AppServiceProvider extends ServiceProvider
 
             $imageNotification = Config::where('key', 'anh_thong_bao')->first();
             view()->share('imageNotification', $imageNotification ? $imageNotification->value : null);
+
+            $app_name = Config::where('key', 'app_name')->first();
+            config(['app.name' => $app_name ? $app_name->value : 'App']);
+
+            $app_description = Config::where('key', 'app_description')->first();
+            config(['app.description' => $app_description ? $app_description->value : 'App']);
         }
     }
 }
