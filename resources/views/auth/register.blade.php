@@ -30,6 +30,12 @@
         top: 10px;
         right: 10px;
     }
+
+    .float-end {
+        position: absolute;
+        bottom: 30px;
+        right: 30px;
+    }
 </style>
 @endpush
 @section('content')
@@ -138,6 +144,10 @@
                 </form>
             </div>
         </div>
+    </div>
+
+    <div class="float-end" style=" cursor: pointer;">
+        <img src="{{ asset('images/cskh3.png') }}" alt="logo" class="img-fluid" width="50px">
     </div>
 </div>
 @endsection

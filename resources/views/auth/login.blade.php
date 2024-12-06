@@ -37,6 +37,11 @@
         top: 10px;
         right: 10px;
     }
+    .float-end {
+        position: absolute;
+        bottom: 30px;
+        right: 30px;
+    }
 </style>
 <!-- Start of LiveChat (www.livechat.com) code -->
 <script>
@@ -82,7 +87,6 @@
 @section('content')
 <div class="wrapper">
     <!-- //select lang -->
-
     <div class="center">
         <div class="card" style="background-color: rgba(255, 255, 255, 0.9); border-radius: 10px;">
             <img src="{{ asset('images/logo2.png') }}" alt="logo" class="img-fluid mx-auto d-block pt-3">
@@ -129,6 +133,10 @@
                 </select>
             </div>
         </div>
+    </div>
+
+    <div class="float-end" style=" cursor: pointer;">
+        <img src="{{ asset('images/cskh3.png') }}" alt="logo" class="img-fluid" width="50px">
     </div>
 </div>
 @include('sweetalert::alert')
