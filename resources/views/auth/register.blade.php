@@ -36,6 +36,13 @@
         bottom: 30px;
         right: 30px;
     }
+
+    @media (min-width: 768px) {
+        .float-end {
+            bottom: 100px;
+            right: 20%;
+        }
+    }
 </style>
 @endpush
 @section('content')
