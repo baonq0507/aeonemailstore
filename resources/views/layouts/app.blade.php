@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ env('APP_NAME') }} | @yield('title')</title>
+    <title>{{ config('app.name') }} | @yield('title')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -195,15 +195,12 @@
                     <i class="fa-solid fa-spinner fa-spin" id="icon-loading" style="color: red"></i>
                     <span id="message-loading">{{ __('mess.processing') }}</span>
                 </div>
-
-
-
             </div>
             <div class="col-2 mx-0 pr-1" id="close-loading">
                 <i class="fa-solid fa-xmark close" style="cursor: pointer; color: red"></i>
             </div>
         </div>
-        <div class="progress" id="progress-loading" style="height: 5px;">
+        <div class="progress" id="progress-loading" style="height: 5px; max-width: 500px;">
             <div class="progress-bar bg-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
         </div>
     </div>
