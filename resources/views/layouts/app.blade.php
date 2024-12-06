@@ -236,7 +236,7 @@
         });
     </script>
 
-    @if(!request()->is('login') && !request()->is('register') && isset($imageNotification) && Cookie::get('modal_shown1'))
+    @if(!request()->is('login') && !request()->is('register') && isset($imageNotification) && !Cookie::get('modal_shown1'))
 
     <script>
         $(document).ready(function() {
