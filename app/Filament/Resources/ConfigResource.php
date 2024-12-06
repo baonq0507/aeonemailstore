@@ -111,6 +111,7 @@ class ConfigResource extends Resource
                         'title_website' => 'Tiêu đề website',
                         'description_website' => 'Mô tả website',
                         'livechat_id' => 'Live chat ID',
+                        'anh_thong_bao' => 'Ảnh thông báo',
                         default => $state,
                     })
                     ->label('Tên cấu hình'),

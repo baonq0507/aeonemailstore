@@ -20,7 +20,9 @@ class HomeController extends Controller
     public function index()
     {
         $levels = Level::all();
-        Cookie::queue('modal_shown', true, 120);
+        if(!Cookie::get('modal_shown')) {
+            Cookie::queue('modal_shown', true, 120);
+        }
         $banner = Banner::all();
         return view('index', compact('levels', 'banner'));
     }
