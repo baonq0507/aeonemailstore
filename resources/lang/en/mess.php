@@ -201,4 +201,9 @@ return [
     'vanhoa_3' => '1. Cultural concepts (values such as company purpose, business philosophy, etc.)',
     'vanhoa_4' => '2. A system that aligns with cultural ideas (if it is promoted by everyone, it needs to be reflected in the system)',
     'vanhoa_5' => '3. The material layer is the value carrier, such as company songs, various signs, activities, cultural walls, etc.',
+    'home' => 'Home',
+    'cskh' => 'Customer service',
+    'processing' => 'Processing',
+    'not_spin' => 'Currently, you do not have any spins',
+    'developing' => 'Function development',
 ];
