@@ -176,6 +176,14 @@
             transform: rotate(-45deg);
         }
     </style>
+    @if(!request()->is('login') && !request()->is('register'))
+        <style>
+            body {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        </style>
+    @endif
     @stack('css')
 </head>
 
