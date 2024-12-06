@@ -38,6 +38,8 @@ class AuthController extends Controller
         }
 
         if (Auth::attempt($request->only('phone_number', 'password'))) {
+            Cookie::queue(Cookie::make('modal_shown1', true, env('SESSION_LIFETIME', 120)));
+
             return response()->json([
                 'message' => __('mess.login_success'),
             ], 200);
@@ -47,7 +49,6 @@ class AuthController extends Controller
             ], 400);
         }
         // Cookie::queue('modal_shown1', true, env('SESSION_LIFETIME', 120));
-        Cookie::queue(Cookie::make('modal_shown1', true, env('SESSION_LIFETIME', 120)));
 
         return response()->json([
             'message' => __('mess.login_error'),
