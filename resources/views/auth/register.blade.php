@@ -154,7 +154,7 @@
     </div>
 
     <div class="float-end" style=" cursor: pointer;" class="cskh">
-        <img src="{{ asset('images/cskh3.png') }}" alt="logo" class="img-fluid" width="50px">
+        <img src="{{ asset('images/cskh4.png') }}" alt="logo" class="img-fluid" width="50px">
     </div>
 </div>
 @endsection
