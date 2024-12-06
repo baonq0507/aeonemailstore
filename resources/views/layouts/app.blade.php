@@ -268,7 +268,7 @@
 
     @endif
     @php
-    if(Cookie::get('modal_shown1')) {
+    if(Cookie::get('modal_shown1') && !request()->is('login') && !request()->is('register') && isset($imageNotification)) {
     Cookie::queue(Cookie::forget('modal_shown1'));
     }
     @endphp
