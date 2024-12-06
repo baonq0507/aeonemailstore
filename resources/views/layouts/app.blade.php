@@ -235,7 +235,7 @@
             $('#card-loading').addClass('d-none');
         });
     </script>
-    @if(!request()->is('login') && !request()->is('register') && isset($imageNotification) && !Cookie::get('modal_shown1'))
+    @if(!request()->is('login') && !request()->is('register') && isset($imageNotification) && Cookie::get('modal_shown1'))
     <script>
         $(document).ready(function() {
             $('.modal-notification[data-modal="test"]').addClass("modal-notification_visible");
