@@ -21,9 +21,6 @@ class HomeController extends Controller
     {
         $levels = Level::all();
         $banner = Banner::all();
-        if(!Cookie::get('modal_shown1')) {
-            Cookie::queue('modal_shown1', true, env('SESSION_LIFETIME', 120));
-        }
         return view('index', compact('levels', 'banner'));
     }
 

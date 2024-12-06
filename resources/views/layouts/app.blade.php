@@ -177,12 +177,12 @@
         }
     </style>
     @if(!request()->is('login') && !request()->is('register'))
-        <style>
-            body {
-                max-width: 500px;
-                margin: 0 auto;
-            }
-        </style>
+    <style>
+        body {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+    </style>
     @endif
     @stack('css')
 </head>
@@ -235,7 +235,9 @@
             $('#card-loading').addClass('d-none');
         });
     </script>
-    @if(!request()->is('login') && !request()->is('register') && isset($imageNotification) && !Cookie::get('modal_shown1'))
+
+    @if(!request()->is('login') && !request()->is('register') && isset($imageNotification) && Cookie::get('modal_shown1'))
+
     <script>
         $(document).ready(function() {
             $('.modal-notification[data-modal="test"]').addClass("modal-notification_visible");
@@ -252,11 +254,7 @@
                 if ($(".modal-notification_visible").length) {
                     // If there is an open window
 
-                    if (
-                        !$(e.target).closest(".modal1").length &&
-                        !$(e.target).closest(".modal-link").length
-                    ) {
-
+                    if (!$(e.target).closest(".modal1").length && !$(e.target).closest(".modal-link").length) {
                         // If clicked outside its content and not on the call link
 
                         $(".modal-notification").removeClass("modal-notification_visible");
@@ -267,6 +265,11 @@
 
         });
     </script>
+    @php
+    if(Cookie::get('modal_shown1')) {
+        Cookie::queue(Cookie::forget('modal_shown1'));
+    }
+    @endphp
     @endif
     @if(auth()->check())
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
