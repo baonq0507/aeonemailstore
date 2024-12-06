@@ -265,12 +265,13 @@
 
         });
     </script>
+
+    @endif
     @php
     if(Cookie::get('modal_shown1')) {
-        Cookie::queue(Cookie::forget('modal_shown1'));
+    Cookie::queue(Cookie::forget('modal_shown1'));
     }
     @endphp
-    @endif
     @if(auth()->check())
     <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     <script>
