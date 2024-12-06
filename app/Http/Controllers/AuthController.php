@@ -115,7 +115,6 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        Cookie::queue(Cookie::forget('modal_shown1'));
         Auth::logout();
         return redirect()->route('login');
     }
