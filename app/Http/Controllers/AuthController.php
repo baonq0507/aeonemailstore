@@ -46,7 +46,8 @@ class AuthController extends Controller
                 'message' => __('mess.phone_number_or_password_incorrect'),
             ], 400);
         }
-        Cookie::queue('modal_shown1', true, env('SESSION_LIFETIME', 120));
+        // Cookie::queue('modal_shown1', true, env('SESSION_LIFETIME', 120));
+        Cookie::queue(Cookie::make('modal_shown1', true, env('SESSION_LIFETIME', 120)));
 
         return response()->json([
             'message' => __('mess.login_error'),
