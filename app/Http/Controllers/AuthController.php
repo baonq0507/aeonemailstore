@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Level;
+use Illuminate\Support\Facades\Cookie;
 class AuthController extends Controller
 {
     public function showFormLogin()
@@ -45,6 +46,8 @@ class AuthController extends Controller
                 'message' => __('mess.phone_number_or_password_incorrect'),
             ], 400);
         }
+        Cookie::queue('modal_shown1', true, env('SESSION_LIFETIME', 120));
+
         return response()->json([
             'message' => __('mess.login_error'),
         ], 400);
@@ -112,6 +115,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        Cookie::queue(Cookie::forget('modal_shown1'));
         Auth::logout();
         return redirect()->route('login');
     }
