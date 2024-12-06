@@ -146,7 +146,7 @@
         </div>
     </div>
 
-    <div class="float-end" style=" cursor: pointer;">
+    <div class="float-end" style=" cursor: pointer;" class="cskh">
         <img src="{{ asset('images/cskh3.png') }}" alt="logo" class="img-fluid" width="50px">
     </div>
 </div>
